@@ -48,6 +48,8 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Switching activities
+	// -----------------------------------------------------------------
 	
 	public void switchActivity_Stock(View view) {
 		Intent intent = new Intent(this, Stock.class);
@@ -66,4 +68,12 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
+	
+	// Also provide similar transitions for pressing the back button
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 }

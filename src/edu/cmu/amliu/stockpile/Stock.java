@@ -31,6 +31,20 @@ public class Stock extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		if (id == android.R.id.home) { 
+			// When clicking to go back to main activity/home, also transition
+			finish();
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	// Also provide similar transitions for pressing the back button
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 }
