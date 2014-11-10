@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Stockpile</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_stock">Stock</string>
+    <string name="stock_transistion">Stock UP!</string>
+    <string name="makelist_transistion">Make list?</string>
+    <string name="rotters_transistion">Rot check.</string>
+    <string name="title_activity_makelist">Makelist</string>
+    <string name="title_activity_rotters">Rotters</string>
+
+</resources>
