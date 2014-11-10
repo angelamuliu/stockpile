@@ -52,15 +52,18 @@ public class MainActivity extends Activity {
 	public void switchActivity_Stock(View view) {
 		Intent intent = new Intent(this, Stock.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
 	public void switchActivity_Makelist(View view) {
 		Intent intent = new Intent(this, Makelist.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
 	public void switchActivity_Rotters(View view) {
 		Intent intent = new Intent(this, Rotters.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 }
