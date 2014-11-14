@@ -33,3 +33,7 @@ Managing SQLite DB in android
 	http://www.sqlite.org/cli.html
 	http://developer.android.com/reference/android/database/Cursor.html
 	http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html
+
+Clicking on items in ListActivity
+	http://stackoverflow.com/questions/5716599/how-to-set-onlistitemclick-for-listview-in-android
+	http://stackoverflow.com/questions/11096601/how-to-reference-onlistitemclick-in-listactivity

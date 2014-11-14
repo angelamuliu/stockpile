@@ -5,14 +5,15 @@ import java.util.List;
 import edu.cmu.amliu.stockpile.db.DBDataSource;
 import edu.cmu.amliu.stockpile.db.Stockrecord;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /*
  * Stockrecord Activity
@@ -110,6 +111,17 @@ public class StockrecordActivity extends ListActivity {
 	    super.onBackPressed();
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
+	
+	// TODO
+	@Override
+	protected void onListItemClick (ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id); 
+		// We can get the string content of a tapped adapter!
+		Object o = this.getListAdapter().getItem(position);
+        String pen = o.toString();
+		Log.d("Tapped", pen);
+	}
+
 
 	// ----------------------------------
 	// MISC
