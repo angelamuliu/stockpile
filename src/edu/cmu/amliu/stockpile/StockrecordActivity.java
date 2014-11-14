@@ -22,7 +22,12 @@ import android.widget.ArrayAdapter;
 public class StockrecordActivity extends ListActivity {
 
 	private DBDataSource datasource;
+	private List<Stockrecord> values;
 
+	// ----------------------------------
+	// Activity Lifecycle
+	// ----------------------------------
+	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -31,37 +36,16 @@ public class StockrecordActivity extends ListActivity {
 	    datasource = new DBDataSource(this);
 	    datasource.open();
 
-	    List<Stockrecord> values = datasource.getall_Stockrecord();
+	    values = datasource.getall_Stockrecord();
+	    List<String> stringvalues = datasource.stockrecords_toStrList(values);
 
 	    // use the SimpleCursorAdapter to show the
 	    // elements in a ListView
-	    ArrayAdapter<Stockrecord> adapter = new ArrayAdapter<Stockrecord>(this,
-	        android.R.layout.simple_list_item_1, values);
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	        android.R.layout.simple_list_item_1, stringvalues);
 	    setListAdapter(adapter);
 	  }
-
-	  // Will be called via the onClick attribute
-	  // of the buttons in main.xml
-	  public void onClick(View view) {
-	    @SuppressWarnings("unchecked")
-	    ArrayAdapter<Stockrecord> adapter = (ArrayAdapter<Stockrecord>) getListAdapter();
-	    Stockrecord sr = null;
-	    switch (view.getId()) {
-	    case R.id.add:
-	    	sr = datasource.create_Stockrecord();
-	    	adapter.add(sr);
-	      break;
-	    case R.id.delete:
-	      if (getListAdapter().getCount() > 0) {
-	    	  sr = (Stockrecord) getListAdapter().getItem(0);
-	    	  datasource.delete_Stockrecord(sr.get_id());
-	    	  adapter.remove(sr);
-	      }
-	      break;
-	    }
-	    adapter.notifyDataSetChanged();
-	  }
-
+	  
 	  @Override
 	  protected void onResume() {
 	    datasource.open();
@@ -74,11 +58,63 @@ public class StockrecordActivity extends ListActivity {
 	    super.onPause();
 	  }
 	  
+	  @Override
+	  protected void onStop() {
+		  datasource.close();
+		  super.onStop();
+	  }
+	  
+	  @Override
+	  protected void onDestroy() {
+		  datasource.close();
+		  super.onDestroy();
+	  }
+
+	// ----------------------------------
+	// CRUD - connect with layout
+	// ----------------------------------
+	  
+	  // Will be called via the onClick attribute
+	  // of the buttons in main.xml
+	  public void onClick(View view) {
+	    @SuppressWarnings("unchecked")
+	    ArrayAdapter<String> adapter = (ArrayAdapter<String>) getListAdapter();
+	    Stockrecord sr = null;
+	    switch (view.getId()) {
+	    case R.id.add:
+	    	sr = datasource.create_Stockrecord();
+	    	values.add(sr);
+	    	adapter.add(sr.format_Str());
+	      break;
+	    case R.id.delete:
+	      if (getListAdapter().getCount() > 0) {
+	    	  sr = (Stockrecord) getListAdapter().getItem(0);
+	    	  datasource.delete_Stockrecord(sr.get_id());
+	    	  values.remove(sr);
+	    	  adapter.remove(sr.format_Str());
+	      }
+	      break;
+	    }
+	    adapter.notifyDataSetChanged();
+	  }
+	  
 	public void switchActivity_FoodView(View view) {
 		Intent intent = new Intent(this, FoodActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
+	// Also provide similar transitions for pressing the back button
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 
+	// ----------------------------------
+	// MISC
+	// ----------------------------------
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

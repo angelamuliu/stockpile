@@ -63,6 +63,8 @@ public class DBDataSource {
 	
 	public void delete_Stockrecord(int id) {
 		database.delete("stockrecord", "_id = " + id, null);
+		// Delete all foods who were associated with the stock record
+		database.delete("food", "stockrecord_id = " + id, null);
 	}
 	
 	public List<Stockrecord> getall_Stockrecord() {
@@ -80,6 +82,16 @@ public class DBDataSource {
 		}
 		cursor.close();
 		return all_stockrecords;
+	}
+	
+	// Given a list of foods, converts all foods into a list of strings
+	public List<String> stockrecords_toStrList(List<Stockrecord> stockrecords) {
+		List<String> stockrecord_strlist = new ArrayList<String>();
+		for (int i=0; i<stockrecords.size(); i++) {
+			Stockrecord sr = stockrecords.get(i);
+			stockrecord_strlist.add(sr.format_Str());
+		}
+		return stockrecord_strlist;
 	}
 	
 	// Can translate cursor query results into a Stockrecord obj
@@ -105,11 +117,12 @@ public class DBDataSource {
 		// Insert returns the id assigned to new row
 		long newID = database.insert("food", null, values);
 
-		String[] cols = {"_id", "name", "location", "stockrecord_id"}; // What cols we're extracting
+		String[] cols = {"_id", "stockrecord_id", "location", "name"}; // What cols we're extracting
 	    Cursor cursor = database.query("food", cols, "_id = " + (int) newID, null, null, null, null);
 	    cursor.moveToFirst();
 	    Food food = cursorto_Food(cursor);
 	    cursor.close();
+	    Log.d("Created food", food.get_name() + food.get_location() + food.get_stockrecord_id());
 	    return food;
 	}
 	
@@ -131,6 +144,7 @@ public class DBDataSource {
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Food food = cursorto_Food(cursor);
+			Log.d("Loading food", food.format_Str());
 			foods.add(food);
 			cursor.moveToNext();
 		}

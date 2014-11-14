@@ -20,5 +20,11 @@ public class Stockrecord {
 	public String get_date_made() {
 		return this.date_made;
 	}
+	
+	// Other
+	public String format_Str() {
+		String finalstr = this._id + " / " + this.date_made;
+		return finalstr;
+	}
 
 }

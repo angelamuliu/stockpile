@@ -23,6 +23,10 @@ public class FoodActivity extends ListActivity {
 	private DBDataSource datasource;
 	private List<Food> values; 
 
+	// ----------------------------------
+	// Activity Lifecycle
+	// ----------------------------------
+	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -41,6 +45,36 @@ public class FoodActivity extends ListActivity {
 	    		android.R.layout.simple_list_item_1, stringvalues);
 	    setListAdapter(adapter);
 	  }
+	  
+	  @Override
+	  protected void onResume() {
+	    datasource.open();
+	    super.onResume();
+	    Log.d("Resume", "Food Activity");
+	  }
+
+	  @Override
+	  protected void onPause() {
+	    datasource.close();
+	    super.onPause();
+	    Log.d("Pause", "Food Activity");
+	  }
+	  
+	  @Override
+	  protected void onStop() {
+		  datasource.close();
+		  super.onStop();
+	  }
+	  
+	  @Override
+	  protected void onDestroy() {
+		  datasource.close();
+		  super.onDestroy();
+	  }
+	  
+	// ----------------------------------
+	// CRUD - connect with layout
+	// ----------------------------------
 
 	  // Will be called via the onClick attribute
 	  // of the buttons in main.xml
@@ -50,8 +84,9 @@ public class FoodActivity extends ListActivity {
 	    Food food = null;
 	    switch (view.getId()) {
 	    case R.id.add:
-	    	food = datasource.create_Food(1);//Create a food associated with stockrecord id 1
+	    	food = datasource.create_Food(1); //Create a food associated with stockrecord id 1
 	    	values.add(food);
+	    	Log.d("Food values", food.format_Str());
 	    	adapter.add(food.format_Str());
 	      break;
 	    case R.id.delete:
@@ -67,18 +102,17 @@ public class FoodActivity extends ListActivity {
 	    }
 	    adapter.notifyDataSetChanged();
 	  }
-
-	  @Override
-	  protected void onResume() {
-	    datasource.open();
-	    super.onResume();
-	  }
-
-	  @Override
-	  protected void onPause() {
-	    datasource.close();
-	    super.onPause();
-	  }
+	  
+	// Also provide similar transitions for pressing the back button
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	  
+	// ----------------------------------
+	// Misc
+	// ----------------------------------
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
