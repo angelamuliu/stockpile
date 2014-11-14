@@ -8,7 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.cmu.amliu.stockpile.Stock" >
+    tools:context="edu.cmu.amliu.stockpile.StockActivity" >
+    
+    <Button
+        android:onClick="switchActivity_Stockrecord" 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Done" 
+	    android:gravity="center" />
     
     <Button
         android:id="@+id/speakbutton"

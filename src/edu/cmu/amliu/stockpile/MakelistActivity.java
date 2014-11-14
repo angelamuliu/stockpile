@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Makelist extends Activity {
+public class MakelistActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

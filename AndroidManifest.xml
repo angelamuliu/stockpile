@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Stock"
+            android:name=".StockActivity"
             android:label="@string/title_activity_stock"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -31,7 +31,7 @@
                 android:value="edu.cmu.amliu.stockpile.MainActivity" />
         </activity>
         <activity
-            android:name=".Makelist"
+            android:name=".MakelistActivity"
             android:label="@string/title_activity_makelist"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -39,12 +39,20 @@
                 android:value="edu.cmu.amliu.stockpile.MainActivity" />
         </activity>
         <activity
-            android:name=".Rotters"
+            android:name=".RottersActivity"
             android:label="@string/title_activity_rotters"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.cmu.amliu.stockpile.MainActivity" />
+        </activity>
+        <activity
+            android:name=".StockrecordActivity"
+            android:label="@string/title_activity_stockrecord" >
+        </activity>
+        <activity
+            android:name=".FoodActivity"
+            android:label="@string/title_activity_food" >
         </activity>
     </application>
 

@@ -21,7 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Stock extends Activity {
+public class StockActivity extends Activity {
+	
+    private static final int REQUEST_CODE = 1234;
+    private ListView wordsList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +77,15 @@ public class Stock extends Activity {
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
+	public void switchActivity_Stockrecord(View view) {
+		Intent intent = new Intent(this, StockrecordActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 	// ------------------------------------------
 	// SPEECH TO TEXT MANAGEMENT
 	// ------------------------------------------
-	
-    private static final int REQUEST_CODE = 1234;
-    private ListView wordsList;
 	
 	// Called on speak button click
 	public void speakbutton_clicked(View v) {

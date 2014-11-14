@@ -10,5 +10,7 @@
     <string name="rotters_transistion">Rot check.</string>
     <string name="title_activity_makelist">Makelist</string>
     <string name="title_activity_rotters">Rotters</string>
+    <string name="title_activity_stockrecord">StockrecordActivity</string>
+    <string name="title_activity_food">FoodActivity</string>
 
 </resources>

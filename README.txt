@@ -26,3 +26,10 @@ ArrayAdapters with Listviews
 Item Click Listeners in Listviews
 	http://stackoverflow.com/questions/12328804/listview-setonitemclicklistener-not-working-for-custom-listview-but-working-in
 	* http://www.ezzylearning.com/tutorial/handling-android-listview-onitemclick-event
+	
+Managing SQLite DB in android
+	* http://www.vogella.com/tutorials/AndroidSQLite/article.html
+	* http://developer.android.com/training/basics/data-storage/databases.html
+	http://www.sqlite.org/cli.html
+	http://developer.android.com/reference/android/database/Cursor.html
+	http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html
