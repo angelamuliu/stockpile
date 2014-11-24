@@ -2,7 +2,8 @@
 
 References
 A HUGE thank you to these great online sources! Starred are ones that I especially
-referenced from.
+referenced from. This project would NOT be possible without the help from these great
+online resources.
 ----------------
 Transitions between activities
 	http://stackoverflow.com/questions/3389501/activity-transition-in-android
@@ -40,3 +41,6 @@ Clicking on items in ListActivity
 
 Passing information between Activities
 	http://stackoverflow.com/questions/7257631/how-to-pass-array-to-another-activity
+
+Start activity for result help (Passing info between activities, having activities go back and resume a previous one)
+	http://stackoverflow.com/questions/22553672/android-startactivityforresult-setresult-for-a-view-class-and-an-activity-cla

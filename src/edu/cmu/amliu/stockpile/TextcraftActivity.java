@@ -35,6 +35,8 @@ public class TextcraftActivity extends Activity {
 		setContentView(R.layout.activity_textcraft);
 	}
 
+	// When the user is all done, press the addfood button which calls this
+	// which packages info to send back to stock activity (and finishes this activity)
 	public void addFood(View view) {
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra("Add food", "From Add Food");
