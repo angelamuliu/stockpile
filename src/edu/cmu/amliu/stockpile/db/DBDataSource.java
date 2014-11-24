@@ -49,12 +49,18 @@ public class DBDataSource {
 		System.out.println(dateFormat.format(today));
 		
 		values.put("date_made", dateFormat.format(today).toString());
-		// 2nd argument simply states that if value is null, then it won't insert a row
+		// Insert values into table stockrecord,
+		// 2nd argument simply states that IF value is null, then it won't insert a row
 		// Insert returns the id assigned to new row
 		long newID = database.insert("stockrecord", null, values);
 
-		String[] cols = {"_id", "date_made"}; // What cols we're extracting
+		String[] cols = {"_id", "date_made"}; // What cols we're extracting from stockrecord table
+		// Query the database to get the just made stockrecord
 	    Cursor cursor = database.query("Stockrecord", cols, "_id = " + (int) newID, null, null, null, null);
+	    
+	    Log.d("Number found", ""+cursor.getCount());
+	    
+	    // If we SOMEHOW got more than one returned row, move it to the first row
 	    cursor.moveToFirst();
 	    Stockrecord sr = cursorto_Stockrecord(cursor);
 	    cursor.close();

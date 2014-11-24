@@ -1,27 +1,33 @@
 package edu.cmu.amliu.stockpile;
 
+import edu.cmu.amliu.stockpile.db.Food;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 /*
- * This activity warns you what food is about to go bad, granted that the food has
- * not been fully consumed (only looks at the most recent stockrecord for now)
+ * This activity displays the heard results of speech-to-text to the user, and
+ * also displays buttons for selecting where the food item has gone. It receives the
+ * listened results array from StockActivity. When a user presses the "ADD!" button,
+ * a food item is created based on what the user has chosen and passed back to StockActivity
  */
 
-public class RottersActivity extends Activity {
+public class SpeechcraftActivity extends Activity {
+	
+	private Food newFood;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rotters);
+		newFood = new Food();
+		setContentView(R.layout.activity_speechcraft);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.rotters, menu);
+		getMenuInflater().inflate(R.menu.speechcraft, menu);
 		return true;
 	}
 
@@ -34,20 +40,6 @@ public class RottersActivity extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
-		if (id == android.R.id.home) { 
-			// When clicking to go back to main activity/home, also transition
-			finish();
-			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	// Also provide similar transitions for pressing the back button
-	@Override
-	public void onBackPressed() {
-	    super.onBackPressed();
-	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-	}
-	
 }

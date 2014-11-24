@@ -54,6 +54,14 @@
             android:name=".FoodActivity"
             android:label="@string/title_activity_food" >
         </activity>
+        <activity
+            android:name=".SpeechcraftActivity"
+            android:label="@string/title_activity_speechcraft" >
+        </activity>
+        <activity
+            android:name=".TextcraftActivity"
+            android:label="@string/title_activity_textcraft" >
+        </activity>
     </application>
 
 </manifest>

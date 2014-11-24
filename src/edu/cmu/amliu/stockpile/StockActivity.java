@@ -3,6 +3,9 @@ package edu.cmu.amliu.stockpile;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.cmu.amliu.stockpile.db.Food;
+import edu.cmu.amliu.stockpile.db.Stockrecord;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,10 +24,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+ * This activity shows the user two methods of input (speech-to-text and keyboard)
+ * and the stock list so far, as well as a done button that will save the record to the DB
+ */
+
 public class StockActivity extends Activity {
 	
     private static final int REQUEST_CODE = 1234;
     private ListView wordsList;
+    
+    // We'll be keeping track of foods inputted, so that when finished we can
+    // process the list and create a stock record from it
+    private ArrayList<Food> foodList;
+    
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +109,7 @@ public class StockActivity extends Activity {
 	private void startVoiceRecognitionActivity() {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Voice recognition Demo...");
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What food are you stocking right now?");
 		startActivityForResult(intent, REQUEST_CODE);
 	}
 	

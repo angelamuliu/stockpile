@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/*
+ * This activity is what generates a shopping list for you
+ * based on your previous stock habits
+ */
+
 public class MakelistActivity extends Activity {
 
 	@Override

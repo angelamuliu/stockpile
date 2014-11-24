@@ -12,5 +12,7 @@
     <string name="title_activity_rotters">Rotters</string>
     <string name="title_activity_stockrecord">StockrecordActivity</string>
     <string name="title_activity_food">FoodActivity</string>
+    <string name="title_activity_speechcraft">SpeechcraftActivity</string>
+    <string name="title_activity_textcraft">TextcraftActivity</string>
 
 </resources>
