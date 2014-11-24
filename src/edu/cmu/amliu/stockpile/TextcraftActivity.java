@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -78,19 +81,48 @@ public class TextcraftActivity extends Activity {
 	    imm.hideSoftInputFromWindow(foodInput.getWindowToken(), 0);
 	}
 	
-	// Setting location
+	// Setting location and styling the choosen button
 	public void setOutside(View view) {
 		location = "Outside";
+		resetButtonStyles();
+		Button outsideButton = (Button) findViewById(R.id.outside);
+		outsideButton.setBackgroundColor(Color.BLUE);	
 	}
 	
 	public void setFridge(View view) {
 		location = "Fridge";
+		resetButtonStyles();
+		Button fridgeButton = (Button) findViewById(R.id.fridge);
+		fridgeButton.setBackgroundColor(Color.BLUE);	
 	}
-
+	
 	public void setFreezer(View view) {
 		location = "Freezer";
+		resetButtonStyles();
+		Button freezerButton = (Button) findViewById(R.id.freezer);
+		freezerButton.setBackgroundColor(Color.BLUE);	
 	}
-
+	
+	// Resets all button styles to the default
+	public void resetButtonStyles() {
+//		TODO: Create own style, set a drawable, and reset buttons to said drawable
+//		Drawable d = getResources().getDrawable(android.R.drawable.btn_default);
+//		
+//		Button outsideButton = (Button) findViewById(R.id.outside);
+//		outsideButton.setBackground(d);
+//		Button fridgeButton = (Button) findViewById(R.id.fridge);
+//		fridgeButton.setBackground(d);
+//		Button freezerButton = (Button) findViewById(R.id.freezer);
+//		freezerButton.setBackground(d);
+		
+		// For now I'm just going to set the bg colors
+		Button outsideButton = (Button) findViewById(R.id.outside);
+		outsideButton.setBackgroundColor(Color.GRAY);
+		Button fridgeButton = (Button) findViewById(R.id.fridge);
+		fridgeButton.setBackgroundColor(Color.GRAY);
+		Button freezerButton = (Button) findViewById(R.id.freezer);
+		freezerButton.setBackgroundColor(Color.GRAY);
+	}
 	
 	
 	// ------------------------------------------
