@@ -2,7 +2,9 @@ package edu.cmu.amliu.stockpile;
 
 import edu.cmu.amliu.stockpile.db.Food;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,6 +22,14 @@ public class TextcraftActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+
+		String[] testarray = bundle.getStringArray("test bundle");
+		
+		Log.d("Testing sending array between activities", testarray[0]);
+		
 		newFood = new Food();
 		setContentView(R.layout.activity_textcraft);
 	}

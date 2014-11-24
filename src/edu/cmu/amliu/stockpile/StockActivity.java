@@ -148,5 +148,23 @@ public class StockActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }
     
+	// ------------------------------------------
+	// TEXT BACKUP MANAGEMENT (alternative to speech-to-text)
+	// ------------------------------------------
+    
+ // Called on text button click
+ 	public void textbutton_clicked(View v) {
+ 		Intent intent = new Intent(this, TextcraftActivity.class);
+ 		
+ 		
+ 		Bundle bundle =new Bundle();
+ 		bundle.putStringArray("test bundle", new String[]{"Hello", "World"});
+ 		
+ 		intent.putExtras(bundle);
+ 		
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+ 	}
+    
 	
 }
