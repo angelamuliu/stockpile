@@ -10,15 +10,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.TextcraftActivity" >
 
-   	<EditText
-   	    android:id="@+id/foodInput"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignParentLeft="true"
-   	    android:layout_alignParentTop="true"
-   	    android:ems="10"
-   	    android:hint="Type in your food"
-   	    android:scrollHorizontally="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/foodInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Type in your food"
+            android:scrollHorizontally="false" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/enterFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="setFoodName"
+            android:text="Ok" />
+
+    </LinearLayout>
 
    	<LinearLayout
    	    android:layout_width="match_parent"
@@ -30,19 +46,23 @@
    	        android:id="@+id/outside"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
-   	        android:text="Button" />
+   	        android:onClick="setOutside"
+   	        android:text="Outside" />
 
    	    <Button
    	        android:id="@+id/fridge"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
-   	        android:text="Button" />
+   	        android:onClick="setFridge"
+   	        android:text="Fridge" />
 
    	    <Button
    	        android:id="@+id/freezer"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
-   	        android:text="Button" />
+   	        android:onClick="setFreezer"
+   	        android:text="Freezer" />
+
    	</LinearLayout>
    	
 	<Button
