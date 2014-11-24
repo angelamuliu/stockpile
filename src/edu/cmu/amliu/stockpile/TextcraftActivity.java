@@ -24,7 +24,7 @@ public class TextcraftActivity extends Activity {
 	
 	private String location = "";
 	private String foodName = "";
-	private String[] foodValues;
+	private String[] foodValues = new String[2];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +55,16 @@ public class TextcraftActivity extends Activity {
 			Toast toast = Toast.makeText(context, text, duration);
 			toast.show();
 		} else {
-			Log.d("Food name", foodName);
-			Log.d("location", location);
+			// Valid input, package name and location and send back array to
+			// stockactivity
+			foodValues[0] = foodName;
+			foodValues[1] = location;
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra("foodValues", foodValues);
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+		    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 		}
-//		Intent resultIntent = new Intent();
-//		resultIntent.putExtra("Add food", "From Add Food");
-//		setResult(Activity.RESULT_OK, resultIntent);
-//		finish();
-//	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
 	// Clicking OK next to the text input sets the name
@@ -79,17 +81,14 @@ public class TextcraftActivity extends Activity {
 	// Setting location
 	public void setOutside(View view) {
 		location = "Outside";
-		Log.d("SET", location);
 	}
 	
 	public void setFridge(View view) {
 		location = "Fridge";
-		Log.d("SET", location);
 	}
 
 	public void setFreezer(View view) {
 		location = "Freezer";
-		Log.d("SET", location);
 	}
 
 	

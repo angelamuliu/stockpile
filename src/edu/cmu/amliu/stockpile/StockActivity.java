@@ -176,8 +176,9 @@ public class StockActivity extends Activity {
         }
         // Respond to textcraft activity
         if (requestCode == TEXTCRAFT_REQCODE && resultCode == RESULT_OK) {
-        	String value = (String) data.getExtras().getString("Add food");
-        	Log.d("Got back", value);
+        	String[] foodValues = data.getExtras().getStringArray("foodValues");
+        	Log.d("Got back", foodValues[0]);
+        	Log.d("Got back", foodValues[1]);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
