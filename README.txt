@@ -37,3 +37,6 @@ Managing SQLite DB in android
 Clicking on items in ListActivity
 	http://stackoverflow.com/questions/5716599/how-to-set-onlistitemclick-for-listview-in-android
 	http://stackoverflow.com/questions/11096601/how-to-reference-onlistitemclick-in-listactivity
+
+Passing information between Activities
+	http://stackoverflow.com/questions/7257631/how-to-pass-array-to-another-activity

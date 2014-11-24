@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 /*
  * Similar to the Speechcraft Activity, but instead simply displays a text input box
@@ -34,6 +35,14 @@ public class TextcraftActivity extends Activity {
 		setContentView(R.layout.activity_textcraft);
 	}
 
+	public void addFood(View view) {
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra("Add food", "From Add Food");
+		setResult(Activity.RESULT_OK, resultIntent);
+		finish();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

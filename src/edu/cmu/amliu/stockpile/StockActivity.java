@@ -31,7 +31,11 @@ import android.widget.Toast;
 
 public class StockActivity extends Activity {
 	
-    private static final int REQUEST_CODE = 1234;
+	// Request codes for starting certain activities and responding to their
+	// different results (given back in bundles!)
+    private static final int SPEECH_REQCODE = 1111;
+    private static final int TEXTCRAFT_REQCODE = 2222;
+    
     private ListView wordsList;
     
     // We'll be keeping track of foods inputted, so that when finished we can
@@ -110,15 +114,15 @@ public class StockActivity extends Activity {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What food are you stocking right now?");
-		startActivityForResult(intent, REQUEST_CODE);
+		startActivityForResult(intent, SPEECH_REQCODE);
 	}
 	
 	// Handle voice recognition results
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
-        {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	Log.d("Activity", "Got back activity");
+    	Log.d("Activity arguments", "ReqCode:" + requestCode + " Result:"+resultCode);
+        if (requestCode == SPEECH_REQCODE && resultCode == RESULT_OK) {
             // Populate the wordsList with the String values the recognition engine thought it heard
         	// i.e. "Milk" -> matches = [milk, Milk, Mielke]
             ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -143,7 +147,10 @@ public class StockActivity extends Activity {
                     
                 }
             });
-            
+        }
+        if (requestCode == TEXTCRAFT_REQCODE && resultCode == RESULT_OK) {
+        	String value = (String) data.getExtras().getString("Add food");
+        	Log.d("Got back", value);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -152,19 +159,20 @@ public class StockActivity extends Activity {
 	// TEXT BACKUP MANAGEMENT (alternative to speech-to-text)
 	// ------------------------------------------
     
- // Called on text button click
+    // Called on text button click
  	public void textbutton_clicked(View v) {
  		Intent intent = new Intent(this, TextcraftActivity.class);
- 		
  		
  		Bundle bundle =new Bundle();
  		bundle.putStringArray("test bundle", new String[]{"Hello", "World"});
  		
  		intent.putExtras(bundle);
  		
-		startActivity(intent);
+		startActivityForResult(intent, TEXTCRAFT_REQCODE);
+//		startActivity(intent);
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
  	}
+ 
     
 	
 }
