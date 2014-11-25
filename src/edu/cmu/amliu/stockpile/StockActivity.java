@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,11 +37,17 @@ public class StockActivity extends Activity {
     private static final int SPEECH_REQCODE = 1111;
     private static final int TEXTCRAFT_REQCODE = 2222;
     
+    // List views we're updating
     private ListView wordsList;
+    private ListView foodList;
     
     // We'll be keeping track of foods inputted, so that when finished we can
-    // process the list and create a stock record from it
-    private ArrayList<Food> foodList;
+    // process the list and create a stock record from it. Each item is a String[],
+    // where [0] -> food name, [1] -> location
+    private ArrayList<String[]> foodArray;
+    
+    // Used to display the foods in the foodList
+    public ArrayList<String> displayedFoods = new ArrayList<String>();
     
 	
 	@Override
@@ -52,6 +59,7 @@ public class StockActivity extends Activity {
 		// Setup interactive elements, speak button and list that displays results
 		Button speakButton = (Button) findViewById(R.id.speakbutton);
         wordsList = (ListView) findViewById(R.id.list);
+        foodList = (ListView) findViewById(R.id.foodList);
         
      // Disable button if no recognition service is present
         PackageManager pm = getPackageManager();
@@ -174,12 +182,18 @@ public class StockActivity extends Activity {
                 }
             });
         }
-        // Respond to textcraft activity
+        // Respond to a successfully finished textcraft activity, we'll get back
+        // an array String[foodname, location]
         if (requestCode == TEXTCRAFT_REQCODE && resultCode == RESULT_OK) {
         	String[] foodValues = data.getExtras().getStringArray("foodValues");
         	Log.d("Got back", foodValues[0]);
         	Log.d("Got back", foodValues[1]);
+
+        	displayedFoods.add(foodValues[0] + " | " + foodValues[1]) ;
+        	ArrayAdapter<String> displayedFoodsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, displayedFoods);
+        	foodList.setAdapter(displayedFoodsAdapter);	
         }
+        
         super.onActivityResult(requestCode, resultCode, data);
     }
  

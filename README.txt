@@ -44,3 +44,6 @@ Passing information between Activities
 
 Start activity for result help (Passing info between activities, having activities go back and resume a previous one)
 	http://stackoverflow.com/questions/22553672/android-startactivityforresult-setresult-for-a-view-class-and-an-activity-cla
+	
+Removing the keyboard on click of another button
+	http://stackoverflow.com/questions/4235070/how-to-clear-focus-and-remove-keyboard-on-android
