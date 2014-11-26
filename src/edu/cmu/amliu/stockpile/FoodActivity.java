@@ -36,7 +36,7 @@ public class FoodActivity extends ListActivity {
 	    // Receive the stock record's id
 	    Intent intent = getIntent();
 	    Bundle bundle = intent.getExtras();
-	    int sr_id = bundle.getInt("sr_id");
+	    int sr_id = bundle.getInt("sr id");
 
 	    datasource = new DBDataSource(this);
 	    datasource.open();
@@ -44,6 +44,7 @@ public class FoodActivity extends ListActivity {
 	    // First load in food values as list, then convert to strings for display
 	    values = datasource.getFood_forSR(sr_id);
 	    List<String> stringvalues = datasource.foods_toStrList(values);
+	    Log.d("stringvalues", ""+stringvalues.size());
 
 	    // use the SimpleCursorAdapter to show the
 	    // elements in a ListView

@@ -100,9 +100,10 @@ public class StockrecordActivity extends ListActivity {
 	  public void create_SR(String[] foodname_Array, String[] foodlocation_Array) {
 		  Stockrecord sr = datasource.create_Stockrecord();
 		  int sr_id = sr.get_id();
-		  for (int i=1; i<foodname_Array.length; i++) {
+		  for (int i=0; i<foodname_Array.length; i++) {
 			  String foodname = foodname_Array[i];
 			  String foodlocation = foodlocation_Array[i];
+			  Log.d("Food", foodname + foodlocation);
 			  datasource.create_Food(sr_id, foodname, foodlocation);
 		  }
 	  }
@@ -121,10 +122,11 @@ public class StockrecordActivity extends ListActivity {
 	      break;
 	    case R.id.delete:
 	      if (getListAdapter().getCount() > 0) {
-	    	  sr = (Stockrecord) getListAdapter().getItem(0);
-	    	  datasource.delete_Stockrecord(sr.get_id());
-	    	  values.remove(sr);
-	    	  adapter.remove(sr.format_Str());
+	    	  
+	    	  String itemStr = (String) getListAdapter().getItem(0);
+	    	  datasource.delete_Stockrecord(extract_srID(itemStr));
+//	    	  values.remove();
+	    	  adapter.remove(itemStr);
 	      }
 	      break;
 	    }
@@ -142,13 +144,19 @@ public class StockrecordActivity extends ListActivity {
 		// We can get the string content of a tapped adapter!
 		Object o = this.getListAdapter().getItem(position);
         String itemStr = o.toString();
-        
-        // Extract the sr id from the string
+		
+		switchActivity_FoodView(extract_srID(itemStr));
+	}
+	
+	/**
+	 * Given a string of a stockrecord, parses it and extracts the stock record's id
+	 * @param itemStr
+	 * @return
+	 */
+	protected int extract_srID(String itemStr) {
 		Pattern pattern =  Pattern.compile("\\|");
 		int sr_id = Integer.parseInt(pattern.split(itemStr.toString())[0].trim());
-		Log.d("Tapped", ""+sr_id);
-		
-		switchActivity_FoodView(sr_id);
+		return sr_id;
 	}
 	
 	/**

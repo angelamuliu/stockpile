@@ -151,6 +151,9 @@ public class DBDataSource {
 		Log.d("WhereArgs", whereArgs[0]);
 		Cursor cursor = database.query("food", cols, "stockrecord_id = ?", whereArgs, null, null, null);
 		
+		
+//		Cursor cursor = database.query("food", cols, "stockrecord_id = ?", whereArgs, null, null, null);
+//		
 		// Move cursor to first returned row. We'll iterate over them
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {

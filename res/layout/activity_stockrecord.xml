@@ -23,13 +23,6 @@
             android:text="Delete First" 
             android:onClick="onClick"/>
         
-       <Button
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="Switch"
-	    android:onClick="switchActivity_FoodView" 
-	    android:gravity="center" />
-        
     </LinearLayout>
 
     <ListView
