@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /*
  * Stockrecord Activity
@@ -128,9 +130,36 @@ public class StockrecordActivity extends ListActivity {
 	    }
 	    adapter.notifyDataSetChanged();
 	  }
-	  
-	public void switchActivity_FoodView(View view) {
+	
+	/**
+	 * Responds to each list item being tapped. We extract the string value of the tapped
+	 * list item and parse it to get the stock record id, then start the food view activity
+	 * based on this id
+	 */
+	@Override
+	protected void onListItemClick (ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id); 
+		// We can get the string content of a tapped adapter!
+		Object o = this.getListAdapter().getItem(position);
+        String itemStr = o.toString();
+        
+        // Extract the sr id from the string
+		Pattern pattern =  Pattern.compile("\\|");
+		int sr_id = Integer.parseInt(pattern.split(itemStr.toString())[0].trim());
+		Log.d("Tapped", ""+sr_id);
+		
+		switchActivity_FoodView(sr_id);
+	}
+	
+	/**
+	 * Given the stock record id, create a food activity view that corresponds
+	 * @param sr_id
+	 */
+	public void switchActivity_FoodView(int sr_id) {
 		Intent intent = new Intent(this, FoodActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("sr id", sr_id);
+		intent.putExtras(bundle);
 		startActivity(intent);
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
@@ -141,17 +170,6 @@ public class StockrecordActivity extends ListActivity {
 	    super.onBackPressed();
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
-	
-	// TODO
-	@Override
-	protected void onListItemClick (ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id); 
-		// We can get the string content of a tapped adapter!
-		Object o = this.getListAdapter().getItem(position);
-        String pen = o.toString();
-		Log.d("Tapped", pen);
-	}
-
 
 	// ----------------------------------
 	// MISC

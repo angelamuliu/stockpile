@@ -3,6 +3,7 @@ package edu.cmu.amliu.stockpile;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,12 +32,17 @@ public class FoodActivity extends ListActivity {
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_food);
+	    
+	    // Receive the stock record's id
+	    Intent intent = getIntent();
+	    Bundle bundle = intent.getExtras();
+	    int sr_id = bundle.getInt("sr_id");
 
 	    datasource = new DBDataSource(this);
 	    datasource.open();
 
 	    // First load in food values as list, then convert to strings for display
-	    values = datasource.getFood_forSR(1);
+	    values = datasource.getFood_forSR(sr_id);
 	    List<String> stringvalues = datasource.foods_toStrList(values);
 
 	    // use the SimpleCursorAdapter to show the

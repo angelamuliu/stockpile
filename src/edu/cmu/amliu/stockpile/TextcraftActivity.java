@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 /*
  * Similar to the Speechcraft Activity, but instead simply displays a text input box
  * and also displays buttons for selecting where the food item has gone. It receives the

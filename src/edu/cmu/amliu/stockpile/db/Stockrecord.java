@@ -23,7 +23,7 @@ public class Stockrecord {
 	
 	// Other
 	public String format_Str() {
-		String finalstr = this._id + " / " + this.date_made;
+		String finalstr = this._id + " | " + this.date_made;
 		return finalstr;
 	}
 
