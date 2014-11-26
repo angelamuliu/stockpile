@@ -42,9 +42,9 @@ public class StockActivity extends Activity {
     private ListView foodList;
     
     // We'll be keeping track of foods inputted, so that when finished we can
-    // process the list and create a stock record from it. Each item is a String[],
-    // where [0] -> food name, [1] -> location
-    private ArrayList<String[]> foodArray;
+    // process the list and create a stock record from it
+    private ArrayList<String> foodNameList = new ArrayList<String>();
+    private ArrayList<String> foodlocationList = new ArrayList<String>();
     
     // Used to display the foods in the foodList
     public ArrayList<String> displayedFoods = new ArrayList<String>();
@@ -102,8 +102,19 @@ public class StockActivity extends Activity {
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
+	// Done, switch views and get ready to save on DB
 	public void switchActivity_Stockrecord(View view) {
 		Intent intent = new Intent(this, StockrecordActivity.class);
+		
+		// Package a bundle of an array to stockrecord activity
+		Bundle bundle =new Bundle();
+		String[] finished_foodNameArray = foodNameList.toArray(new String[foodNameList.size()]);
+		String[] finished_foodlocationArray = foodlocationList.toArray(new String[foodlocationList.size()]);
+ 		bundle.putStringArray("foodname array", finished_foodNameArray);
+ 		bundle.putStringArray("foodlocation array", finished_foodlocationArray);
+ 		intent.putExtras(bundle);
+ 		
+ 		finish();
 		startActivity(intent);
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
@@ -183,17 +194,19 @@ public class StockActivity extends Activity {
             });
         }
         // Respond to a successfully finished textcraft activity, we'll get back
-        // an array String[foodname, location]
+        // two strings - the food's name, and the food's location
         if (requestCode == TEXTCRAFT_REQCODE && resultCode == RESULT_OK) {
-        	String[] foodValues = data.getExtras().getStringArray("foodValues");
-        	Log.d("Got back", foodValues[0]);
-        	Log.d("Got back", foodValues[1]);
+        	// Update the two arrays that store values and the one that displays it on this activity
+        	String foodName = data.getExtras().getString("foodName");
+        	foodNameList.add(foodName);
+        	
+        	String location = data.getExtras().getString("location");
+        	foodlocationList.add(location);
 
-        	displayedFoods.add(foodValues[0] + " | " + foodValues[1]) ;
+        	displayedFoods.add(foodName + " | " + location) ;
         	ArrayAdapter<String> displayedFoodsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, displayedFoods);
         	foodList.setAdapter(displayedFoodsAdapter);	
         }
-        
         super.onActivityResult(requestCode, resultCode, data);
     }
  

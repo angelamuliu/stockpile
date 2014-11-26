@@ -47,3 +47,8 @@ Start activity for result help (Passing info between activities, having activiti
 	
 Removing the keyboard on click of another button
 	http://stackoverflow.com/questions/4235070/how-to-clear-focus-and-remove-keyboard-on-android
+
+Check if intent has extras
+	http://stackoverflow.com/questions/8255618/check-if-extras-are-set-or-not
+	
+	

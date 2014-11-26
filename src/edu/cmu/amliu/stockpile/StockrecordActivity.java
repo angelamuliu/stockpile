@@ -33,6 +33,15 @@ public class StockrecordActivity extends ListActivity {
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_stockrecord);
+	    
+	    // Attempt to receive string array from the creation process (stock activity)
+	    // if said extras exist in the intent
+	    Intent intent = getIntent();
+	    if (intent.hasExtra("foodname array")) {
+	    	Bundle bundle = intent.getExtras();
+			String[] testarray = bundle.getStringArray("foodname array");
+			Log.d("GOT", testarray[0]);
+	    }
 
 	    datasource = new DBDataSource(this);
 	    datasource.open();

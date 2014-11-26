@@ -27,7 +27,6 @@ public class TextcraftActivity extends Activity {
 	
 	private String location = "";
 	private String foodName = "";
-	private String[] foodValues = new String[2];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +59,9 @@ public class TextcraftActivity extends Activity {
 		} else {
 			// Valid input, package name and location and send back array to
 			// stockactivity
-			foodValues[0] = foodName;
-			foodValues[1] = location;
 			Intent resultIntent = new Intent();
-			resultIntent.putExtra("foodValues", foodValues);
+			resultIntent.putExtra("foodName", foodName);
+			resultIntent.putExtra("location", location);
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
 		    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

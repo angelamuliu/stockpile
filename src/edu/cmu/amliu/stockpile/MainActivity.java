@@ -69,6 +69,12 @@ public class MainActivity extends Activity {
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
+	public void switchActivity_StockRecord(View view) {
+		Intent intent = new Intent(this, StockrecordActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 	// Also provide similar transitions for pressing the back button
 	@Override
 	public void onBackPressed() {
