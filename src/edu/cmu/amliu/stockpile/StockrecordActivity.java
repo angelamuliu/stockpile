@@ -22,7 +22,10 @@ import android.widget.ListView;
  */
 public class StockrecordActivity extends ListActivity {
 
+	// Allows CRUD access to our SQLITE db
 	private DBDataSource datasource;
+	
+	// Displayed stockrecords in this activity
 	private List<Stockrecord> values;
 
 	// ----------------------------------
@@ -34,17 +37,18 @@ public class StockrecordActivity extends ListActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_stockrecord);
 	    
+	    datasource = new DBDataSource(this);
+	    datasource.open();
+	    
 	    // Attempt to receive string array from the creation process (stock activity)
-	    // if said extras exist in the intent
+	    // if said extras exist in the intent. Create a stock record!
 	    Intent intent = getIntent();
 	    if (intent.hasExtra("foodname array")) {
 	    	Bundle bundle = intent.getExtras();
-			String[] testarray = bundle.getStringArray("foodname array");
-			Log.d("GOT", testarray[0]);
+			String[] foodname_Array = bundle.getStringArray("foodname array");
+			String[] foodlocation_Array = bundle.getStringArray("foodlocation array");
+			create_SR(foodname_Array, foodlocation_Array);
 	    }
-
-	    datasource = new DBDataSource(this);
-	    datasource.open();
 
 	    values = datasource.getall_Stockrecord();
 	    List<String> stringvalues = datasource.stockrecords_toStrList(values);
@@ -56,6 +60,7 @@ public class StockrecordActivity extends ListActivity {
 	    setListAdapter(adapter);
 	  }
 	  
+	  // Ensuring the DB is properly handled and not left open
 	  @Override
 	  protected void onResume() {
 	    datasource.open();
@@ -83,6 +88,22 @@ public class StockrecordActivity extends ListActivity {
 	// ----------------------------------
 	// CRUD - connect with layout
 	// ----------------------------------
+	  
+	  /**
+	   * Usually called after stock activity passes stock information to this activity.
+	   * Inserts a stockrecord into the DB that has the foods attached to it as well
+	   * @param foodname_Array
+	   * @param foodlocation_Array
+	   */
+	  public void create_SR(String[] foodname_Array, String[] foodlocation_Array) {
+		  Stockrecord sr = datasource.create_Stockrecord();
+		  int sr_id = sr.get_id();
+		  for (int i=1; i<foodname_Array.length; i++) {
+			  String foodname = foodname_Array[i];
+			  String foodlocation = foodlocation_Array[i];
+			  datasource.create_Food(sr_id, foodname, foodlocation);
+		  }
+	  }
 	  
 	  // Will be called via the onClick attribute
 	  // of the buttons in main.xml

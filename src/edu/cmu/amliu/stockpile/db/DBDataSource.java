@@ -112,12 +112,17 @@ public class DBDataSource {
 	// CRUD Food
 	// ----------------------------------
 	
-	public Food create_Food(int stockrecord_id) {
+	/**
+	 * Inserts a food object into the database, given a stockrecord to attach it to
+	 * @param stockrecord_id
+	 * @return
+	 */
+	public Food create_Food(int stockrecord_id, String name, String location) {
 		ContentValues values = new ContentValues();
 
 		values.put("stockrecord_id", stockrecord_id);
-		values.put("location", "fillerlocation");
-		values.put("name", "fillerfoodname");
+		values.put("location", location);
+		values.put("name", name);
 		
 		// 2nd argument simply states that if value is null, then it won't insert a row
 		// Insert returns the id assigned to new row

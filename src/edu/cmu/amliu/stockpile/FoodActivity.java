@@ -84,10 +84,10 @@ public class FoodActivity extends ListActivity {
 	    Food food = null;
 	    switch (view.getId()) {
 	    case R.id.add:
-	    	food = datasource.create_Food(1); //Create a food associated with stockrecord id 1
-	    	values.add(food);
-	    	Log.d("Food values", food.format_Str());
-	    	adapter.add(food.format_Str());
+//	    	food = datasource.create_Food(1); //Create a food associated with stockrecord id 1
+//	    	values.add(food);
+//	    	Log.d("Food values", food.format_Str());
+//	    	adapter.add(food.format_Str());
 	      break;
 	    case R.id.delete:
 	      if (getListAdapter().getCount() > 0) {
