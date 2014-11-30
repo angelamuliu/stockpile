@@ -50,5 +50,11 @@ Removing the keyboard on click of another button
 
 Check if intent has extras
 	http://stackoverflow.com/questions/8255618/check-if-extras-are-set-or-not
+
+Expandable List
+	* http://www.androidhive.info/2013/07/android-expandable-list-view-tutorial/
+
+Ordering SQL Query for android
+	http://stackoverflow.com/questions/8948435/how-do-i-order-my-sqlite-database-in-descending-order-for-an-android-app
 	
 	

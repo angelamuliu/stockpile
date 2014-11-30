@@ -79,11 +79,15 @@ public class DBDataSource {
 		database.delete("food", "stockrecord_id = " + id, null);
 	}
 	
+	/**
+	 * Gets all stockrecords ordered by id (so by which was most recently created)
+	 * @return
+	 */
 	public List<Stockrecord> getall_Stockrecord() {
 		List<Stockrecord> all_stockrecords = new ArrayList<Stockrecord>();
 		
 		String[] cols = {"_id", "date_made"}; // What cols we're extracting
-		Cursor cursor = database.query("stockrecord", cols, null, null, null, null, null);
+		Cursor cursor = database.query("stockrecord", cols, null, null, null, null, "_id DESC");
 		
 		// Move cursor to first returned row. We'll iterate over them
 		cursor.moveToFirst();

@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -29,6 +32,9 @@ public class StockrecordActivity extends ListActivity {
 	
 	// Displayed stockrecords in this activity
 	private List<Stockrecord> values;
+	
+	// Converted to strings for display purposes
+	List<String> stringvalues;
 
 	// ----------------------------------
 	// Activity Lifecycle
@@ -53,13 +59,23 @@ public class StockrecordActivity extends ListActivity {
 	    }
 
 	    values = datasource.getall_Stockrecord();
-	    List<String> stringvalues = datasource.stockrecords_toStrList(values);
+	    stringvalues = datasource.stockrecords_toStrList(values);
 
 	    // use the SimpleCursorAdapter to show the
-	    // elements in a ListView
+	    // elements in a ListView (except the most recently created SR)
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	        android.R.layout.simple_list_item_1, stringvalues);
+	        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
 	    setListAdapter(adapter);
+	    
+	    // Have most recent SR in it's own little container
+	    TextView mostRecent = (TextView) findViewById(R.id.newSR);
+	    mostRecent.setText(stringvalues.get(0));
+	    
+	  }
+	  
+	  // When the most recent SR is tapped
+	  public void getNewest(View view) {
+		  switchActivity_FoodView(extract_srID(stringvalues.get(0)));
 	  }
 	  
 	  // Ensuring the DB is properly handled and not left open

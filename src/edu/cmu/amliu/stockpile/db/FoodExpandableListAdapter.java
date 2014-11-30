@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+// Big thanks to this comprehensive tutorial on using expandable list adapters
+// http://www.androidhive.info/2013/07/android-expandable-list-view-tutorial/
+
 public class FoodExpandableListAdapter extends BaseExpandableListAdapter {
 	
 	private Context _context;
