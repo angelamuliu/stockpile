@@ -1,5 +1,7 @@
 package edu.cmu.amliu.stockpile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -10,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import edu.cmu.amliu.stockpile.db.DBDataSource;
 import edu.cmu.amliu.stockpile.db.Food;
+import edu.cmu.amliu.stockpile.db.FoodExpandableListAdapter;
 
 /*
  * Food Activity
@@ -24,6 +28,12 @@ public class FoodActivity extends ListActivity {
 	private DBDataSource datasource;
 	private List<Food> values; 
 
+	
+	FoodExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    ArrayList<String> listDataHeader;
+    HashMap<String, ArrayList<String>> listDataChild;
+    
 	// ----------------------------------
 	// Activity Lifecycle
 	// ----------------------------------
@@ -37,20 +47,37 @@ public class FoodActivity extends ListActivity {
 	    Intent intent = getIntent();
 	    Bundle bundle = intent.getExtras();
 	    int sr_id = bundle.getInt("sr id");
-
+	 
 	    datasource = new DBDataSource(this);
 	    datasource.open();
 
-	    // First load in food values as list, then convert to strings for display
+	    // Load in food values as list, then convert to strings for display
 	    values = datasource.getFood_forSR(sr_id);
-	    List<String> stringvalues = datasource.foods_toStrList(values);
-	    Log.d("stringvalues", ""+stringvalues.size());
-
-	    // use the SimpleCursorAdapter to show the
-	    // elements in a ListView
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-	    		android.R.layout.simple_list_item_1, stringvalues);
-	    setListAdapter(adapter);
+	    preparedata(values);
+	    
+	    // Setting up the expandable food list adapter and list
+	    // So we can load data in here to be displayed on the list
+	    expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        listAdapter = new FoodExpandableListAdapter(this, listDataHeader, listDataChild);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+	  }
+	  
+	  /**
+	   * Load and prepare data from the sql db so that it can
+	   * be displayed in the expandable list
+	   * @param foods
+	   */
+	  private void preparedata(List<Food> foods) {
+		  	listDataHeader = new ArrayList<String>();
+	        // Add headers
+	        listDataHeader.add("Outside");
+	        listDataHeader.add("Fridge");
+	        listDataHeader.add("Freezer");
+	        
+	        // Load in the data from the SQL db (already mapped to keys outside, fridge, freezer
+	        // and returns values as an ArrayList of strings
+	        listDataChild = datasource.foods_toStrMap(foods);
 	  }
 	  
 	  @Override

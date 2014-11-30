@@ -69,6 +69,10 @@ public class DBDataSource {
 	    return sr;
 	}
 	
+	/**
+	 * Deletes a stockrecord and any associated food records from the db
+	 * @param id
+	 */
 	public void delete_Stockrecord(int id) {
 		database.delete("stockrecord", "_id = " + id, null);
 		// Delete all foods who were associated with the stock record
@@ -123,8 +127,8 @@ public class DBDataSource {
 		ContentValues values = new ContentValues();
 
 		values.put("stockrecord_id", stockrecord_id);
-		values.put("location", location);
 		values.put("name", name);
+		values.put("location", location);
 		
 		// 2nd argument simply states that if value is null, then it won't insert a row
 		// Insert returns the id assigned to new row
@@ -181,8 +185,8 @@ public class DBDataSource {
 	 * @param foods
 	 * @return
 	 */
-	public HashMap<String, List<String>> foods_toStrMap(List<Food> foods) {
-		HashMap<String, List<String>> foodMap = new HashMap<String, List<String>>();
+	public HashMap<String, ArrayList<String>> foods_toStrMap(List<Food> foods) {
+		HashMap<String, ArrayList<String>> foodMap = new HashMap<String, ArrayList<String>>();
 		
 		ArrayList<String> outside = new ArrayList<String>();
 		ArrayList<String> fridge = new ArrayList<String>();
@@ -190,21 +194,21 @@ public class DBDataSource {
 		
 		for (int i=0; i<foods.size(); i++) {
 			Food viewedfood = foods.get(i);
-			if (viewedfood.get_location() == "Outside") {
+			
+			if (viewedfood.get_location().equals("Outside")) {
 				outside.add(viewedfood.get_name());
 			}
-			if (viewedfood.get_location() == "Fridge") {
+			if (viewedfood.get_location().equals("Fridge")) {
 				fridge.add(viewedfood.get_name());
 			}
-			if (viewedfood.get_location() == "Freezer") {
-				fridge.add(viewedfood.get_name());
+			if (viewedfood.get_location().equals("Freezer")) {
+				freezer.add(viewedfood.get_name());
 			}
 		}
 		foodMap.put("Outside", outside);
 		foodMap.put("Fridge", fridge);
 		foodMap.put("Freezer", freezer);
 		return foodMap;
-		
 	}
 	
 	// Can translate cursor query results into a Stockrecord obj
@@ -212,8 +216,8 @@ public class DBDataSource {
 		Food food = new Food();
 		food.set_ID(cursor.getInt(0));
 		food.set_stockrecord_id(cursor.getInt(1));
-		food.set_name(cursor.getString(2));
-		food.set_location(cursor.getString(3));
+		food.set_location(cursor.getString(2));
+		food.set_name(cursor.getString(3));
 		return food;
 	}
 
