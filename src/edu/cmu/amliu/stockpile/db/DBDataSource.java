@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -150,10 +152,7 @@ public class DBDataSource {
 		String[] whereArgs = new String[] {""+stockrecord_id};
 		Log.d("WhereArgs", whereArgs[0]);
 		Cursor cursor = database.query("food", cols, "stockrecord_id = ?", whereArgs, null, null, null);
-		
-		
-//		Cursor cursor = database.query("food", cols, "stockrecord_id = ?", whereArgs, null, null, null);
-//		
+	
 		// Move cursor to first returned row. We'll iterate over them
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
@@ -174,6 +173,38 @@ public class DBDataSource {
 			food_strList.add(viewedfood.format_Str());
 		}
 		return food_strList;
+	}
+	
+	/**
+	 * Given a list of foods, returns a dictionary whose keys are outside, fridge, and freezer
+	 * and the values are arraylists of foods who correspond to each location
+	 * @param foods
+	 * @return
+	 */
+	public HashMap<String, List<String>> foods_toStrMap(List<Food> foods) {
+		HashMap<String, List<String>> foodMap = new HashMap<String, List<String>>();
+		
+		ArrayList<String> outside = new ArrayList<String>();
+		ArrayList<String> fridge = new ArrayList<String>();
+		ArrayList<String> freezer = new ArrayList<String>();
+		
+		for (int i=0; i<foods.size(); i++) {
+			Food viewedfood = foods.get(i);
+			if (viewedfood.get_location() == "Outside") {
+				outside.add(viewedfood.get_name());
+			}
+			if (viewedfood.get_location() == "Fridge") {
+				fridge.add(viewedfood.get_name());
+			}
+			if (viewedfood.get_location() == "Freezer") {
+				fridge.add(viewedfood.get_name());
+			}
+		}
+		foodMap.put("Outside", outside);
+		foodMap.put("Fridge", fridge);
+		foodMap.put("Freezer", freezer);
+		return foodMap;
+		
 	}
 	
 	// Can translate cursor query results into a Stockrecord obj
