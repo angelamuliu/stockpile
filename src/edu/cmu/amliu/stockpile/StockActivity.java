@@ -181,30 +181,10 @@ public class StockActivity extends Activity {
      		intent.putExtras(bundle);
     		startActivityForResult(intent, SPEECHCRAFT_REQCODE);
     		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            
-            
-            // ArrayAdapters convert an array into a set of views that can be loaded into a listview
-//            ArrayAdapter<String> wordAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, matches);
-//            wordsList.setAdapter(wordAdapter);
-//            // Update wordsList with the new set of possible words from listener
-//            
-//            // The list has been generated. Now we can set a listener per list item (in this case,
-//            // android's best speech recognition guesses) and do something with them
-//            wordsList.setOnItemClickListener(new OnItemClickListener() {
-//                
-//            	public void onItemClick(AdapterView<?> parent, View view, int position,
-//                        long id) {
-//                    
-//                    String item = ((TextView)view).getText().toString();
-//                    // For now, just show a toast message of the tapped item
-//                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-//                    
-//                }
-//            });
         }
-        // Respond to a successfully finished textcraft activity, we'll get back
+        // Respond to a successfully finished textcraft or speechcraft activity, we'll get back
         // two strings - the food's name, and the food's location
-        if (requestCode == TEXTCRAFT_REQCODE && resultCode == RESULT_OK) {
+        if ((requestCode == TEXTCRAFT_REQCODE || requestCode == SPEECHCRAFT_REQCODE) && resultCode == RESULT_OK) {
         	// Update the two arrays that store values and the one that displays it on this activity
         	String foodName = data.getExtras().getString("foodName");
         	foodNameList.add(foodName);

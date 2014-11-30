@@ -2,6 +2,7 @@ package edu.cmu.amliu.stockpile;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -54,18 +55,38 @@ public class SpeechcraftActivity extends Activity {
 			 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				 TextView tappedItem = ((TextView)view);
 				 String item = tappedItem.getText().toString();
-//				 resetListStyles();
-//				 tappedItem.setBackgroundColor(Color.BLUE);
 				 foodName = item;
 		      }
 		 });
 	}
 	
-	// Resets the all textviews within list to default style
-	public void resetListStyles() {
-		//TODO: Create own style, set a drawable, and reset to said drawable
-		wordsList.setBackgroundColor(Color.WHITE);
-	}
+	// When the user is all done, press the addfood button which calls this
+		// which packages info to send back to stock activity
+		public void addFood(View view) {
+			Context context = getApplicationContext();
+			if (foodName.isEmpty()) {
+				CharSequence text = "Select a food";
+				int duration = Toast.LENGTH_SHORT;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			} else if (location.isEmpty()) {
+				CharSequence text = "Select a location";
+				int duration = Toast.LENGTH_SHORT;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			} else {
+				// Valid input, package name and location and send back array to
+				// stockactivity
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra("foodName", foodName);
+				resultIntent.putExtra("location", location);
+				setResult(Activity.RESULT_OK, resultIntent);
+				finish();
+			    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+			}
+		}
 	
 	// Setting location and styling the choosen button
 	public void setOutside(View view) {
