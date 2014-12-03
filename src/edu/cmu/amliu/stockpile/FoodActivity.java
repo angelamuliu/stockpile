@@ -26,13 +26,12 @@ import edu.cmu.amliu.stockpile.db.FoodExpandableListAdapter;
 public class FoodActivity extends ListActivity {
 
 	private DBDataSource datasource;
-	private List<Food> values; 
-
+	private List<Food> values;  // Food values for a certain SR
 	
-	FoodExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    ArrayList<String> listDataHeader;
-    HashMap<String, ArrayList<String>> listDataChild;
+	FoodExpandableListAdapter listAdapter; // Adapter for expListView
+    ExpandableListView expListView; // The view we're inserting into
+    ArrayList<String> listDataHeader; // Used to give list it's headers/expandable sections
+    HashMap<String, ArrayList<String>> listDataChild; // The list item children, separated per header/section by key
     
 	// ----------------------------------
 	// Activity Lifecycle
@@ -51,15 +50,14 @@ public class FoodActivity extends ListActivity {
 	    datasource = new DBDataSource(this);
 	    datasource.open();
 
-	    // Load in food values as list, then convert to strings for display
+	    // Load in food values as list
 	    values = datasource.getFood_forSR(sr_id);
+	    // Prepare data into a header array and a values map so that it can be displayed in exp list
 	    preparedata(values);
 	    
 	    // Setting up the expandable food list adapter and list
-	    // So we can load data in here to be displayed on the list
 	    expListView = (ExpandableListView) findViewById(R.id.lvExp);
         listAdapter = new FoodExpandableListAdapter(this, listDataHeader, listDataChild);
-        // setting list adapter
         expListView.setAdapter(listAdapter);
 	  }
 	  

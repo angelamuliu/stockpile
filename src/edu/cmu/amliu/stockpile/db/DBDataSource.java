@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -151,7 +153,11 @@ public class DBDataSource {
 		database.delete("food", "_id = " + id, null);
 	}
 	
-	// Returns all the foods underneath a certain stockrecord
+	/**
+	 * Returns all food items associated with a certain stock record
+	 * @param stockrecord_id
+	 * @return
+	 */
 	public List<Food> getFood_forSR(int stockrecord_id) {
 		Log.d("Get Food for SR", ""+stockrecord_id);
 		List<Food> foods = new ArrayList<Food>();
@@ -224,7 +230,56 @@ public class DBDataSource {
 		food.set_name(cursor.getString(3));
 		return food;
 	}
-
+	
+	
+	// ----------------------------------
+	// SharedPreferences K-V Food Count Storage
+	// ----------------------------------
+	// Shared Preferences allows simple saving of key value pairs which can then be accessed by any activity
+	// We'll be using it to save counts of types of food so that in producing the recommended shopping list, we
+	// dont iterate over all foods in the sql db and take forever (also inefficient)
+	
+	/**
+	 * Opens our SharedPreferences data storage area to add one to a food (i.e. "Eggs" was 5, now 6)
+	 * If a food is new, it deals with this situation as well.
+	 * @param context
+	 * @param foodname
+	 */
+	public void addOne_tofood(Context context, String foodname) {
+		// First we check if this is a new food
+		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
+		// We search for the value for key foodname, IF it doesn't exist then 0 is returned by getInt()
+		Integer foodname_count = foodCount.getInt(foodname, 0); 
+		
+		// Open up the SharedPreferences Editor to make changes to our data
+		SharedPreferences.Editor foodCount_editor = foodCount.edit();
+		
+		if (foodname_count > 0) {
+			foodCount_editor.putInt(foodname,  foodname_count+1);
+		} else {
+			foodCount_editor.putInt(foodname, 1);
+		}
+		foodCount_editor.commit();
+	}
+	
+	/**
+	 * Opens our SharedPreferences data storage area to remove one to a food.
+	 * If the food is new/doesn't exist, this won't do anything
+	 * @param context
+	 * @param foodname
+	 */
+	public void removeOne_fromfood(Context context, String foodname) {
+		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
+		// We search for the value for key foodname, IF it doesn't exist then 0 is returned by getInt()
+		Integer foodname_count = foodCount.getInt(foodname, 0); 
+		
+		if (foodname_count > 0) {
+			// Open up the SharedPreferences Editor to make changes to our data
+			SharedPreferences.Editor foodCount_editor = foodCount.edit();
+			foodCount_editor.putInt(foodname,  foodname_count-1);
+			foodCount_editor.commit();
+		}
+	}
 
 
 }
