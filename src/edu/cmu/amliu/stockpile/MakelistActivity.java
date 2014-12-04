@@ -1,5 +1,9 @@
 package edu.cmu.amliu.stockpile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import edu.cmu.amliu.stockpile.db.DBDataSource;
 import android.app.Activity;
 import android.content.Intent;
@@ -25,10 +29,17 @@ public class MakelistActivity extends Activity {
 		
 		datasource = new DBDataSource(this);
 	    datasource.open();
-	    
-	    Log.d("Started List", "ACTIVITY");
 		
-	    datasource.foodCount_toStrList(getApplicationContext());
+	    HashMap<Integer, ArrayList<String>> foodmap = datasource.foodCount_toStrList(getApplicationContext());
+	    Iterator<Integer> iterator = foodmap.keySet().iterator();
+	    while (iterator.hasNext()) {
+	    	Integer count = iterator.next();
+	    	ArrayList<String> foods = foodmap.get(count);
+	    	Log.d("COUNT", ""+count);
+	    	for (int i=0; i<foods.size(); i++) {
+	    		Log.d("food member for " + count, foods.get(i));
+	    	}
+	    }
 	}
 	
 	// Ensuring the DB is properly handled and not left open

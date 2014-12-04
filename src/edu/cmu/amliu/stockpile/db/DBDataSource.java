@@ -284,23 +284,29 @@ public class DBDataSource {
 	}
 
 	/**
-	 * Takes the K-V sharedpreferences file and returns a string list of food name and
-	 * the associated value
+	 * Takes the K-V sharedpreferences file and reverses it so that keys are count and values are
+	 * arraylists of the foods contained per count. This allows us to quickly figure out which foods
+	 * are in the higher counts later. We return a hashmap
 	 * @return
 	 */
-	public List<String> foodCount_toStrList(Context context) {
-		ArrayList<String> foodCount_StrList = new ArrayList<String>();
+	public HashMap<Integer, ArrayList<String>> foodCount_toStrList(Context context) {
+		HashMap<Integer, ArrayList<String>> reversedMap = new HashMap<Integer, ArrayList<String>>();
+		
 		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
 		Set<String> foodnamekeys = foodCount.getAll().keySet();
-		Log.d("Keys", foodnamekeys.toString());
 		Iterator<String> iterator = foodnamekeys.iterator();
 		while (iterator.hasNext()) {
 			String foodname = iterator.next();
-			Log.d("FOODNAME", foodname);
 			int foodvalue = foodCount.getInt(foodname, 0);
-			Log.d("FOODVALUE", ""+foodvalue);
+			if (reversedMap.get(foodvalue) == null) {
+				ArrayList<String> foodnames = new ArrayList<String>();
+				foodnames.add(foodname);
+				reversedMap.put(foodvalue, foodnames);
+			} else {
+				reversedMap.get(foodvalue).add(foodname);
+			}
 		}
-		return foodCount_StrList;
+		return reversedMap;
 	}
 	
 
