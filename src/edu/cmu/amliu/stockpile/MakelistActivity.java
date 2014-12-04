@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * This activity is what generates a shopping list for you
@@ -21,6 +23,8 @@ public class MakelistActivity extends Activity {
 	// We need to access the saved K-V pairs of food and count
 	private DBDataSource datasource;
 	
+	private ListView foodlist;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,43 +33,41 @@ public class MakelistActivity extends Activity {
 		
 		datasource = new DBDataSource(this);
 	    datasource.open();
-		
-	    HashMap<Integer, ArrayList<String>> foodmap = datasource.foodCount_toStrList(getApplicationContext());
-	    Iterator<Integer> iterator = foodmap.keySet().iterator();
-	    while (iterator.hasNext()) {
-	    	Integer count = iterator.next();
-	    	ArrayList<String> foods = foodmap.get(count);
-	    	Log.d("COUNT", ""+count);
-	    	for (int i=0; i<foods.size(); i++) {
-	    		Log.d("food member for " + count, foods.get(i));
-	    	}
-	    }
+	    
+	    HashMap<Integer, ArrayList<String>> foodmap = datasource.process_foodCountKV(getApplicationContext());
+	    ArrayList<String> orderedFoods = datasource.foodCountKV_toList(foodmap);
+	    
+	    foodlist = (ListView) findViewById(R.id.list);
+	    ArrayAdapter<String> displayedFoodsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, orderedFoods);
+	    foodlist.setAdapter(displayedFoodsAdapter);	
+    	
+    	datasource.close();
 	}
 	
 	// Ensuring the DB is properly handled and not left open
-		  @Override
-		  protected void onResume() {
-		    datasource.open();
-		    super.onResume();
-		  }
-
-		  @Override
-		  protected void onPause() {
-		    datasource.close();
-		    super.onPause();
-		  }
-		  
-		  @Override
-		  protected void onStop() {
-			  datasource.close();
-			  super.onStop();
-		  }
-		  
-		  @Override
-		  protected void onDestroy() {
-			  datasource.close();
-			  super.onDestroy();
-		  }
+	  @Override
+	  protected void onResume() {
+	    datasource.open();
+	    super.onResume();
+	  }
+	
+	  @Override
+	  protected void onPause() {
+	    datasource.close();
+	    super.onPause();
+	  }
+	  
+	  @Override
+	  protected void onStop() {
+		  datasource.close();
+		  super.onStop();
+	  }
+	  
+	  @Override
+	  protected void onDestroy() {
+		  datasource.close();
+		  super.onDestroy();
+	  }
 	
 	
 	// Also provide similar transitions for pressing the back button

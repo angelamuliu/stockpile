@@ -33,24 +33,24 @@ public final class R {
     public static final class id {
         public static final int action_settings=0x7f090013;
         public static final int add=0x7f090001;
-        public static final int addFood=0x7f090008;
+        public static final int addFood=0x7f090009;
         public static final int delete=0x7f090002;
         public static final int enterFood=0x7f090010;
         public static final int foodInput=0x7f09000f;
-        public static final int foodList=0x7f09000b;
-        public static final int freezer=0x7f090007;
-        public static final int fridge=0x7f090006;
+        public static final int foodList=0x7f09000c;
+        public static final int freezer=0x7f090008;
+        public static final int fridge=0x7f090007;
         public static final int group=0x7f090000;
         public static final int lblListHeader=0x7f090011;
         public static final int lblListItem=0x7f090012;
-        public static final int list=0x7f09000c;
+        public static final int list=0x7f090004;
         public static final int lvExp=0x7f090003;
         public static final int newSR=0x7f09000e;
-        public static final int outside=0x7f090005;
-        public static final int speakbutton=0x7f09000a;
-        public static final int speechmatches=0x7f090004;
+        public static final int outside=0x7f090006;
+        public static final int speakbutton=0x7f09000b;
+        public static final int speechmatches=0x7f090005;
         public static final int textView1=0x7f09000d;
-        public static final int textbutton=0x7f090009;
+        public static final int textbutton=0x7f09000a;
     }
     public static final class layout {
         public static final int activity_food=0x7f030000;

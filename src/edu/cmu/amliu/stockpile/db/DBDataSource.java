@@ -289,7 +289,7 @@ public class DBDataSource {
 	 * are in the higher counts later. We return a hashmap
 	 * @return
 	 */
-	public HashMap<Integer, ArrayList<String>> foodCount_toStrList(Context context) {
+	public HashMap<Integer, ArrayList<String>> process_foodCountKV(Context context) {
 		HashMap<Integer, ArrayList<String>> reversedMap = new HashMap<Integer, ArrayList<String>>();
 		
 		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
@@ -307,6 +307,29 @@ public class DBDataSource {
 			}
 		}
 		return reversedMap;
+	}
+	
+	/**
+	 * Meant to take what comes out of processing the foodcount map. The process -> Start with shared
+	 * preferences, k=name of food, v=count. When we use process, we reverse it so that k=count, and
+	 * v=array of all foods with that count. This then creates an ordered ArrayList.
+	 * Not sure if really optimal.
+	 * @param foodmap
+	 * @return
+	 */
+	public ArrayList<String> foodCountKV_toList(HashMap<Integer, ArrayList<String>> foodmap) {
+		ArrayList<String> sortedFoods = new ArrayList<String>();
+		Integer[] keys = (Integer[]) foodmap.keySet().toArray(new Integer[0]);
+	    // Start from end and go to begining
+		for (int i=keys.length-1; i>=0; i--) {
+	    	Log.d("Key is", ""+keys[i]);
+	    	ArrayList<String> foodsInCount = foodmap.get(keys[i]);
+	    	sortedFoods.addAll(foodsInCount);
+	    }
+		for (int i=0; i<sortedFoods.size(); i++) {
+			Log.d("FOOD", sortedFoods.get(i));
+		}
+		return sortedFoods;
 	}
 	
 
