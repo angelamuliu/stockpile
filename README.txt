@@ -56,5 +56,15 @@ Expandable List
 
 Ordering SQL Query for android
 	http://stackoverflow.com/questions/8948435/how-do-i-order-my-sqlite-database-in-descending-order-for-an-android-app
+
+Using SharedPreferences for K-V
+	http://stackoverflow.com/questions/5946135/difference-between-getdefaultsharedpreferences-and-getsharedpreferences
+	* http://stackoverflow.com/questions/12432585/android-shared-preferences-with-multiple-activities
+	http://stackoverflow.com/questions/5950043/how-to-use-getsharedpreferences-in-android
+	http://stackoverflow.com/questions/11264214/storing-data-in-sharedpreferences-accessible-to-all-activities
+	http://developer.android.com/reference/android/content/SharedPreferences.Editor.html
+	
+	
+	
 	
 	

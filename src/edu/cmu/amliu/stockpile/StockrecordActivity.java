@@ -3,6 +3,7 @@ package edu.cmu.amliu.stockpile;
 import java.util.List;
 
 import edu.cmu.amliu.stockpile.db.DBDataSource;
+import edu.cmu.amliu.stockpile.db.Food;
 import edu.cmu.amliu.stockpile.db.Stockrecord;
 
 import android.app.ListActivity;
@@ -109,7 +110,9 @@ public class StockrecordActivity extends ListActivity {
 	  
 	  /**
 	   * Usually called after stock activity passes stock information to this activity.
-	   * Inserts a stockrecord into the DB that has the foods attached to it as well
+	   * Inserts a stockrecord into the DB that has the foods attached to it as well.
+	   * Food is also inserted into the DB and a foodCount via SharedPreferences is
+	   * updated as well in this step.
 	   * @param foodname_Array
 	   * @param foodlocation_Array
 	   */
@@ -121,11 +124,13 @@ public class StockrecordActivity extends ListActivity {
 			  String foodlocation = foodlocation_Array[i];
 			  Log.d("Food", foodname + foodlocation);
 			  datasource.create_Food(sr_id, foodname, foodlocation);
+			  datasource.addOne_tofood(getApplicationContext(), foodname);
 		  }
 	  }
 	  
 	  // Will be called via the onClick attribute
 	  // of the buttons in main.xml
+	  // TODO: Have a dedicated delete method, it's too messy handling all clicks with one method
 	  public void onClick(View view) {
 	    @SuppressWarnings("unchecked")
 	    ArrayAdapter<String> adapter = (ArrayAdapter<String>) getListAdapter();
@@ -139,9 +144,21 @@ public class StockrecordActivity extends ListActivity {
 	    case R.id.delete:
 	      if (getListAdapter().getCount() > 0) {
 	    	  
+	    	  // get the string of the clicked item and extract the stockrecord ID from it
 	    	  String itemStr = (String) getListAdapter().getItem(0);
+	    	  int sr_ID = extract_srID(itemStr);
+	    	  
+	    	  // need to remove one per food in foodcount k-v file (since sharedpreferences file
+	    	  // is not the db, we need this step)
+	    	  List<Food> sr_foods = datasource.getFood_forSR(sr_ID);
+	    	  for (int i=0; i<sr_foods.size(); i++) {
+	    		  Food viewedfood = sr_foods.get(i);
+	    		  String foodname = viewedfood.get_name();
+	    		  datasource.removeOne_fromfood(getApplicationContext(), foodname);
+	    	  }
+	    	  
+	    	  // deleting the stockrecord also removes all associated foods from db
 	    	  datasource.delete_Stockrecord(extract_srID(itemStr));
-//	    	  values.remove();
 	    	  adapter.remove(itemStr);
 	      }
 	      break;

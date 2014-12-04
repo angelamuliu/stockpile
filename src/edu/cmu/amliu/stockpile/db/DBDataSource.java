@@ -4,10 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,9 +17,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-/*
+/**
  * DBDataSource
- * A class that manages CRUD access to the SQL DB
+ * A class that manages CRUD access to the SQL DB for stockrecords and food.
+ * In addition, this class also manages SharedPreference saved K-V pairs specifically for
+ * keeping count of food.
  */
 public class DBDataSource {
 	
@@ -249,7 +251,7 @@ public class DBDataSource {
 		// First we check if this is a new food
 		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
 		// We search for the value for key foodname, IF it doesn't exist then 0 is returned by getInt()
-		Integer foodname_count = foodCount.getInt(foodname, 0); 
+		int foodname_count = foodCount.getInt(foodname, 0); 
 		
 		// Open up the SharedPreferences Editor to make changes to our data
 		SharedPreferences.Editor foodCount_editor = foodCount.edit();
@@ -271,7 +273,7 @@ public class DBDataSource {
 	public void removeOne_fromfood(Context context, String foodname) {
 		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
 		// We search for the value for key foodname, IF it doesn't exist then 0 is returned by getInt()
-		Integer foodname_count = foodCount.getInt(foodname, 0); 
+		int foodname_count = foodCount.getInt(foodname, 0); 
 		
 		if (foodname_count > 0) {
 			// Open up the SharedPreferences Editor to make changes to our data
@@ -281,5 +283,25 @@ public class DBDataSource {
 		}
 	}
 
+	/**
+	 * Takes the K-V sharedpreferences file and returns a string list of food name and
+	 * the associated value
+	 * @return
+	 */
+	public List<String> foodCount_toStrList(Context context) {
+		ArrayList<String> foodCount_StrList = new ArrayList<String>();
+		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
+		Set<String> foodnamekeys = foodCount.getAll().keySet();
+		Log.d("Keys", foodnamekeys.toString());
+		Iterator<String> iterator = foodnamekeys.iterator();
+		while (iterator.hasNext()) {
+			String foodname = iterator.next();
+			Log.d("FOODNAME", foodname);
+			int foodvalue = foodCount.getInt(foodname, 0);
+			Log.d("FOODVALUE", ""+foodvalue);
+		}
+		return foodCount_StrList;
+	}
+	
 
 }
