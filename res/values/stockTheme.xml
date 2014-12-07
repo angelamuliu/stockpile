@@ -1,0 +1,18 @@
+
+<resources>
+    
+    <style name="stockpile_Theme" parent="android:Theme.Light">
+       	<item name="android:windowActionBar">false</item>
+       	<item name="android:windowTitleSize">0dp</item>
+    	<item name="android:windowNoTitle">true</item>
+       	
+	    <item name="android:textColor">#00FF00</item>
+	    <item name="android:background">#ffff00</item>
+    </style>
+    
+    <!-- All customizations that are NOT specific to a particular API-level can go here. -->	
+    <style name="stockpile_Theme_gen" parent="stockpile_Theme">
+
+    </style>
+    
+</resources>

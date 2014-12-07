@@ -63,6 +63,10 @@ Using SharedPreferences for K-V
 	http://stackoverflow.com/questions/5950043/how-to-use-getsharedpreferences-in-android
 	http://stackoverflow.com/questions/11264214/storing-data-in-sharedpreferences-accessible-to-all-activities
 	http://developer.android.com/reference/android/content/SharedPreferences.Editor.html
+
+Removing the Action Bar with Themes
+	http://tech.xster.net/tips/remove-title-bar-on-android-application
+	http://stackoverflow.com/questions/8456835/how-to-disable-action-bar-permanently/
 	
 	
 	
