@@ -15,10 +15,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:fontFamily="sans-serif-light"
         android:onClick="switchActivity_StockRecord"
-        android:text="View old records" />
+        android:text="View old records"
+        android:textColorLink="@color/dark_chocolate" />
 
-	<LinearLayout
+<LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:gravity="center"
@@ -27,17 +29,37 @@
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin">
-	
-	   	<Button
+
+		<ImageView
+		    android:id="@+id/ic_stockpile"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/stock_transistion"
-		    android:onClick="switchActivity_Stock" 
-		    android:gravity="center" />
+		    android:adjustViewBounds="true"
+		    android:maxWidth="100dp"
+		    android:src="@drawable/stockpile_m" />
+
+		<TextView
+		    android:id="@+id/name"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginBottom="5dp"
+		    android:fontFamily="sans-serif-light"
+		    android:text="Stockpile"
+		    android:textColor="@color/dark_chocolate"
+		    android:textSize="25sp" />
+	
+	   	<Button
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_marginBottom="3dp"
+	   	    android:gravity="center"
+	   	    android:onClick="switchActivity_Stock"
+	   	    android:text="@string/stock_transistion" />
 	   	
 		<Button
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
+		    android:layout_marginBottom="3dp"
 		    android:gravity="center"
 		    android:onClick="switchActivity_Makelist"
 		    android:text="@string/makelist_transistion" />
@@ -45,9 +67,10 @@
 		<Button
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/rotters_transistion"
-		    android:onClick="switchActivity_Rotters" 
-		    android:gravity="center" />
+		    android:layout_marginBottom="3dp"
+		    android:gravity="center"
+		    android:onClick="switchActivity_Rotters"
+		    android:text="@string/rotters_transistion" />
 		
 	</LinearLayout>
 

@@ -67,6 +67,15 @@ Using SharedPreferences for K-V
 Removing the Action Bar with Themes
 	http://tech.xster.net/tips/remove-title-bar-on-android-application
 	http://stackoverflow.com/questions/8456835/how-to-disable-action-bar-permanently/
+
+Define Style, Theme, Colors
+	http://stackoverflow.com/questions/3769762/android-color-xml-resource-file
+	https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/styles.xml
+	https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/themes.xml
+
+Drawables in terms of making own button
+	http://developer.xamarin.com/recipes/android/resources/general/style_a_button/
+	* http://dmytrodanylyk.com/pages/blog/flat-button.html
 	
 	
 	

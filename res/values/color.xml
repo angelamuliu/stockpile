@@ -1,0 +1,14 @@
+<resources>
+    <!-- Define resuable colors here, which we can reference with @color/colorname -->
+    
+    <color name="pink">#D75A5D</color>
+    <color name="tan">#E88851</color>
+    <color name="peach">#FFFFEC</color>
+    <color name="dark_chocolate">#260E00</color>
+    <color name="toast">#A64A1E</color>
+    <color name="strawberry_cream">#FFD6CE</color>
+    <color name="strawberry">#FFACAB</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
