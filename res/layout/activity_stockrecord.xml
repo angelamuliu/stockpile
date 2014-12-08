@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -13,7 +13,6 @@
         android:id="@+id/stockrecord_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_gravity="left"
         android:clickable="true"
         android:fontFamily="sans-serif-light"
@@ -25,8 +24,6 @@
         android:id="@+id/stockrecord_newest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/stockrecord_back"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
         android:paddingTop="8dp"
         android:text="Newest record" />
@@ -35,8 +32,6 @@
         android:id="@+id/newSR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/stockrecord_newest"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:onClick="getNewest"
@@ -50,15 +45,15 @@
    	    android:id="@+id/hr"
    	    android:layout_width="fill_parent"
    	    android:layout_height="2dp"
-   	    android:layout_below="@id/newSR"
    	    android:layout_marginBottom="10dp"
    	    android:background="@color/toast" />
 
-    <ListView
+   <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/hr"
         android:text="Hello" />
 
-</RelativeLayout> 
+
+</LinearLayout> 

@@ -284,6 +284,16 @@ public class DBDataSource {
 	}
 
 	/**
+	 * Simply clears the entire foodCountKV file
+	 */
+	public void clear_foodCountKV(Context context) {
+		SharedPreferences foodCount = context.getSharedPreferences("foodCount", context.MODE_PRIVATE);
+		SharedPreferences.Editor foodCount_editor = foodCount.edit();
+		foodCount_editor.clear();
+		foodCount_editor.commit();
+	}
+	
+	/**
 	 * Takes the K-V sharedpreferences file and reverses it so that keys are count and values are
 	 * arraylists of the foods contained per count. This allows us to quickly figure out which foods
 	 * are in the higher counts later. We return a hashmap

@@ -62,15 +62,21 @@ public class StockrecordActivity extends ListActivity {
 	    values = datasource.getall_Stockrecord();
 	    stringvalues = datasource.stockrecords_toStrList(values);
 
-	    // use the SimpleCursorAdapter to show the
-	    // elements in a ListView (except the most recently created SR)
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
-	    setListAdapter(adapter);
 	    
-	    // Have most recent SR in it's own little container
-	    TextView mostRecent = (TextView) findViewById(R.id.newSR);
-	    mostRecent.setText(stringvalues.get(0));
+	    if (stringvalues.size() > 0) {
+	    	// use the SimpleCursorAdapter to show the
+		    // elements in a ListView (except the most recently created SR)
+		    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
+		    setListAdapter(adapter);
+		    
+		    // Have most recent SR in it's own little container
+		    TextView mostRecent = (TextView) findViewById(R.id.newSR);
+		    mostRecent.setText(stringvalues.get(0));
+	    } else {
+	    	TextView mostRecent = (TextView) findViewById(R.id.newSR);
+		    mostRecent.setText("There are no records!");
+	    }
 	  }
 	  
 	  // Ensuring the DB is properly handled and not left open
@@ -215,16 +221,22 @@ public class StockrecordActivity extends ListActivity {
 	    	  
 	    	  // Update the view now
 	    	  stringvalues.remove(itemStr);
-	    	  // Reset the adapter to the updated string
-	    	  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-			        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
-			  setListAdapter(adapter);
-			    
-			  // Reset the 'most recent' record in case user deleted most recent
-			  TextView mostRecent = (TextView) findViewById(R.id.newSR);
-			  mostRecent.setText(stringvalues.get(0));
-
-
+			  if (stringvalues.size() > 0) {
+				  // Reset the adapter to the updated string
+				  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
+				  setListAdapter(adapter);
+				    
+				  // Reset the 'most recent' record in case user deleted most recent
+				  TextView mostRecent = (TextView) findViewById(R.id.newSR);
+				  mostRecent.setText(stringvalues.get(0));
+			  } else {
+				TextView mostRecent = (TextView) findViewById(R.id.newSR);
+			    mostRecent.setText("There are no records!");
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					        android.R.layout.simple_list_item_1, stringvalues);
+				setListAdapter(adapter);
+			  }
 		}
 	}
 	
