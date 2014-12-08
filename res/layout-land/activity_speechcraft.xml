@@ -10,48 +10,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.SpeechcraftActivity" >
 
-    <TextView
-        android:id="@+id/speech_backHome"
+    <LinearLayout
+        android:id="@+id/land_ops"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:onClick="backHome"
-        android:text="&lt; Not right? Try again." />
-    
-   <ListView
-        android:id="@+id/speechmatches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/speech_backHome"
-        android:listSelector="#11FFFF" />
-    
-    <LinearLayout
-        android:id="@+id/speechOptions"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/addFood"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/outside"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minWidth="50dp"
-            android:onClick="setOutside"
-            android:text="Outside" />
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+        
+        <TextView
+	        android:id="@+id/speech_backHome"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="10dp"
+	        android:clickable="true"
+	        android:onClick="backHome"
+	        android:text="&lt; Not right? Try again." />
+        
+         <Button
+             android:id="@+id/outside"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="3dp"
+             android:layout_weight="1"
+             android:gravity="center"
+             android:minWidth="50dp"
+             android:onClick="setOutside"
+             android:text="Outside" />
 
         <Button
             android:id="@+id/fridge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:gravity="center"
             android:minWidth="50dp"
@@ -62,23 +54,29 @@
             android:id="@+id/freezer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:minWidth="50dp"
             android:onClick="setFreezer"
             android:text="Freezer" />
-
+        
+	    <Button
+	        android:id="@+id/addFood"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:drawableRight="@drawable/ic_action_new"
+	        android:gravity="center"
+	        android:onClick="addFood"
+	        android:text="Add Food " />
+        
     </LinearLayout>
-
-    <Button
-        android:id="@+id/addFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/ic_action_new"
-        android:gravity="center"
-        android:onClick="addFood"
-        android:text="Add Food " />
+    
+       <ListView
+           android:id="@+id/speechmatches"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_toRightOf="@id/land_ops"
+           android:listSelector="@color/pink" />
 
 </RelativeLayout>
