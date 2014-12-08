@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.cmu.amliu.stockpile.TextcraftActivity" >
+    
+    <TextView
+        android:id="@+id/text_backHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        android:onClick="backHome"
+        android:text="&lt; Not right? Try again." />
+    
+    <LinearLayout
+        android:id="@+id/text_foodinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" >
+
+        <EditText
+            android:id="@+id/foodInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:ems="10"
+            android:hint="Type in your food"
+            android:scrollHorizontally="false" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/enterFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="setFoodName"
+            android:text="Ok" />
+
+    </LinearLayout>
+
+   	<LinearLayout
+   	    android:id="@+id/textOptions"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_marginBottom="10dp"
+   	    android:gravity="center_horizontal"
+   	    android:orientation="horizontal" >
+
+   	    <Button
+   	        android:id="@+id/outside"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_marginRight="3dp"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
+   	        android:minWidth="50dp"
+   	        android:onClick="setOutside"
+   	        android:text="Outside" />
+
+   	    <Button
+   	        android:id="@+id/fridge"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_marginRight="3dp"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
+   	        android:minWidth="50dp"
+   	        android:onClick="setFridge"
+   	        android:text="Fridge" />
+
+   	    <Button
+   	        android:id="@+id/freezer"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
+   	        android:minWidth="50dp"
+   	        android:onClick="setFreezer"
+   	        android:text="Freezer" />
+
+   	</LinearLayout>
+   	
+   	<LinearLayout
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="match_parent"
+   	    android:orientation="vertical" >
+
+	   	    <Button
+	   	        android:id="@+id/addFood"
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+	   	        android:layout_gravity="center"
+	   	        android:drawableRight="@drawable/ic_action_new"
+	   	        android:gravity="center"
+	   	        android:onClick="addFood"
+	   	        android:text="Add Food " />
+
+   	</LinearLayout>
+   
+
+</LinearLayout>
