@@ -1,10 +1,48 @@
 
+# Stockpile
+Restock your food hoard with confidence!
 
-References
+Developer
+Angela M Liu :: CMU F14, 05-433 SSUI Mobile Lab
+
+--------------------------------------------------------------------------------------
+
+# What is
+
+Stockpile is a native android application that is designed to help users keep track of
+what foods have been recently purchased. Ever go shopping for groceries and forget what
+you got last time? Do you usually buy eggs and you forgot this time? Stockpile can help
+both those scenarios.
+
+This application is essentially an exploration of android's features and documentation
+of common functionalities. A sqlite database is used, along with sharedpreferences, to 
+save user data. Speech-to-text is also played with. Populating listviews programatically
+is another pattern that is repeated. Making Stockpile has solidified my understanding of
+Android's lifecycle, how to pass data between activities, how to start and finish related
+activities, and how to manage resources for difference screen sizes.
+
+
+# Issues/Future
+
+I had wished to implement a 'rot reminder' feature that would keep track and remind users
+of when certain foods were going back (e.g. eggs stocked a month ago are about to rot).
+However, I decided that this would be outside the scope of my project. I would have to draw
+on a database of food names and amount of time they would perish in three settings 
+(outside, fridge, freezer) as well as account for variability in how the user inputs a 
+food item. Eggs could be input as 'dozen eggs,' 'eggeronies,' etc. I believe in the future, 
+the best way to implement the rot feature would be connecting to a database hosted on the 
+cloud via internet and pull relevant data, as saving all the food names and expirations
+would be a bit much clientside.
+
+
+--------------------------------------------------------------------------------------
+
+#References
+
 A HUGE thank you to these great online sources! Starred are ones that I especially
 referenced from. This project would NOT be possible without the help from these great
 online resources.
-----------------
+
 Transitions between activities
 	http://stackoverflow.com/questions/3389501/activity-transition-in-android
 	http://stackoverflow.com/questions/5151591/android-left-to-right-slide-animation
