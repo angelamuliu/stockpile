@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -9,39 +9,65 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.StockActivity" >
-    
-    <Button
-        android:onClick="switchActivity_Stockrecord" 
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="Done" 
-	    android:gravity="center" />
-    
-    <Button
-        android:id="@+id/textbutton"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:onClick="textbutton_clicked"
-	    android:text="Input manually" 
-	    android:gravity="center" />
-    
-    <Button
-        android:id="@+id/speakbutton"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:onClick="speakbutton_clicked"
-	    android:text="Click to start recording!" 
-	    android:gravity="center" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:drawableRight="@drawable/ic_action_accept"
+        android:gravity="center"
+        android:onClick="switchActivity_Stockrecord"
+        android:text="Done" />
+
+   <LinearLayout
+       android:id="@+id/stockoptions"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="10dp"
+       android:orientation="horizontal" >
+        
+       <Button
+           android:id="@+id/speakbutton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginRight="3dp"
+           android:layout_weight="1"
+           android:drawableTop="@drawable/ic_action_mic"
+           android:gravity="center_horizontal"
+           android:onClick="speakbutton_clicked"
+           android:text="Record" />
+       
+        <Button
+            android:id="@+id/textbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_action_keyboard"
+            android:gravity="center_horizontal"
+            android:onClick="textbutton_clicked"
+            android:text="Type" />
+
+    </LinearLayout>
+    
+   <!--  Trick to insert an hr like element -->
+
+   	<View
+   	    android:id="@+id/hr"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="3dp"
+   	    android:layout_below="@+id/stockoptions"
+   	    android:layout_marginBottom="10dp"
+   	    android:background="@color/toast"/>
+  
     <ListView
         android:id="@+id/foodList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-    
-    <ListView android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_below="@+id/hr"
+        android:gravity="center" >
+    </ListView>
 
-</LinearLayout>
+
+</RelativeLayout>

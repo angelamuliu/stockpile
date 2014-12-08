@@ -39,7 +39,6 @@ public class StockActivity extends Activity {
     private static final int SPEECHCRAFT_REQCODE = 3333;
     
     // List views we're updating
-    private ListView wordsList;
     private ListView foodList;
     
     // We'll be keeping track of foods inputted, so that when finished we can
@@ -59,7 +58,6 @@ public class StockActivity extends Activity {
 		
 		// Setup interactive elements, speak button and list that displays results
 		Button speakButton = (Button) findViewById(R.id.speakbutton);
-        wordsList = (ListView) findViewById(R.id.list);
         foodList = (ListView) findViewById(R.id.foodList);
         
      // Disable button if no recognition service is present

@@ -18,7 +18,7 @@ Centering content in layouts
 	http://stackoverflow.com/questions/1957831/centre-a-button-in-a-linear-layout
 	
 Speech to Text
-	http://www.androidhive.info/2014/07/android-speech-to-text-tutorial/
+	* http://www.androidhive.info/2014/07/android-speech-to-text-tutorial/
 	* http://www.jameselsey.co.uk/blogs/techblog/android-how-to-implement-voice-recognition-a-nice-easy-tutorial/
 	
 ArrayAdapters with Listviews
