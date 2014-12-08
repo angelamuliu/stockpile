@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,11 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.TextcraftActivity" >
     
+    <TextView
+        android:id="@+id/text_backHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        android:onClick="backHome"
+        android:text="&lt; Not right? Try again." />
+    
     <LinearLayout
         android:id="@+id/text_foodinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginBottom="10dp" >
 
         <EditText
@@ -44,7 +53,6 @@
    	    android:id="@+id/textOptions"
    	    android:layout_width="fill_parent"
    	    android:layout_height="wrap_content"
-   	    android:layout_below="@id/text_foodinput"
    	    android:layout_marginBottom="10dp"
    	    android:gravity="center_horizontal"
    	    android:orientation="horizontal" >
@@ -80,15 +88,22 @@
 
    	</LinearLayout>
    	
-   <Button
-        android:id="@+id/addFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textOptions"
-        android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/ic_action_new"
-        android:gravity="center"
-        android:onClick="addFood"
-        android:text="Add Food " />
+   	<LinearLayout
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="fill_parent"
+   	    android:orientation="vertical" >
 
-</RelativeLayout>
+	   	    <Button
+	   	        android:id="@+id/addFood"
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+	   	        android:layout_gravity="center"
+	   	        android:drawableRight="@drawable/ic_action_new"
+	   	        android:gravity="center"
+	   	        android:onClick="addFood"
+	   	        android:text="Add Food " />
+
+   	</LinearLayout>
+   
+
+</LinearLayout>
