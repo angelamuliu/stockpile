@@ -275,10 +275,16 @@ public class DBDataSource {
 		// We search for the value for key foodname, IF it doesn't exist then 0 is returned by getInt()
 		int foodname_count = foodCount.getInt(foodname, 0); 
 		
+		Log.d("Removing", "Name: " + foodname + ", Count: " + foodname_count);
+		
 		if (foodname_count > 0) {
 			// Open up the SharedPreferences Editor to make changes to our data
 			SharedPreferences.Editor foodCount_editor = foodCount.edit();
-			foodCount_editor.putInt(foodname,  foodname_count-1);
+			if (foodname_count-1 == 0) {
+				foodCount_editor.remove(foodname);
+			} else {
+				foodCount_editor.putInt(foodname,  foodname_count-1);
+			}
 			foodCount_editor.commit();
 		}
 	}

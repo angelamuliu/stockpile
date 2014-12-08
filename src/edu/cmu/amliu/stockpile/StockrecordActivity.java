@@ -145,8 +145,10 @@ public class StockrecordActivity extends ListActivity {
 	
 	// When the most recent SR is tapped
 	public void getNewest(View view) {
-		String itemStr = stringvalues.get(0);
-		switchActivity_FoodView(extract_srID(stringvalues.get(0)), itemStr);
+		if (stringvalues.size()>0) {
+			String itemStr = stringvalues.get(0);
+			switchActivity_FoodView(extract_srID(stringvalues.get(0)), itemStr);
+		}
 	}
 	
 	/**
