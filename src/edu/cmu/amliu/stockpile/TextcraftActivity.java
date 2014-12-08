@@ -93,64 +93,40 @@ public class TextcraftActivity extends Activity {
 		location = "Outside";
 		resetButtonStyles();
 		Button outsideButton = (Button) findViewById(R.id.outside);
-		outsideButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		outsideButton.setBackgroundColor(pink);	
 	}
 	
 	public void setFridge(View view) {
 		location = "Fridge";
 		resetButtonStyles();
 		Button fridgeButton = (Button) findViewById(R.id.fridge);
-		fridgeButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		fridgeButton.setBackgroundColor(pink);	
 	}
 	
 	public void setFreezer(View view) {
 		location = "Freezer";
 		resetButtonStyles();
 		Button freezerButton = (Button) findViewById(R.id.freezer);
-		freezerButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		freezerButton.setBackgroundColor(pink);	
 	}
-	
-	// Resets all button styles to the default
+
+	/**
+	 * Resets all button option styles to the default
+	 */
 	public void resetButtonStyles() {
-//		TODO: Create own style, set a drawable, and reset buttons to said drawable
-//		Drawable d = getResources().getDrawable(android.R.drawable.btn_default);
-//		
-//		Button outsideButton = (Button) findViewById(R.id.outside);
-//		outsideButton.setBackground(d);
-//		Button fridgeButton = (Button) findViewById(R.id.fridge);
-//		fridgeButton.setBackground(d);
-//		Button freezerButton = (Button) findViewById(R.id.freezer);
-//		freezerButton.setBackground(d);
+		int drawable_id = R.drawable.stockbutton;
+		Drawable stockbutton = getResources().getDrawable(drawable_id);
 		
 		// For now I'm just going to set the bg colors
 		Button outsideButton = (Button) findViewById(R.id.outside);
-		outsideButton.setBackgroundColor(Color.GRAY);
+		outsideButton.setBackground(stockbutton);
 		Button fridgeButton = (Button) findViewById(R.id.fridge);
-		fridgeButton.setBackgroundColor(Color.GRAY);
+		fridgeButton.setBackground(stockbutton);
 		Button freezerButton = (Button) findViewById(R.id.freezer);
-		freezerButton.setBackgroundColor(Color.GRAY);
-	}
-	
-	
-	// ------------------------------------------
-	// Default stuff, remove if necessary
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.textcraft, menu);
-		return true;
+		freezerButton.setBackground(stockbutton);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

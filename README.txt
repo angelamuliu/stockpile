@@ -80,6 +80,9 @@ Drawables in terms of making own button
 Relative Layout help
 	http://stackoverflow.com/questions/2318775/how-to-create-fixed-footer-in-android-layout
 
+Applying Drawable Style programatically
+	http://stackoverflow.com/questions/2349652/android-open-resource-from-drawable-string
+
 
 	
 	

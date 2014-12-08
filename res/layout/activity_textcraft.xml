@@ -64,6 +64,7 @@
    	        android:layout_marginRight="3dp"
    	        android:layout_weight="1"
    	        android:gravity="center"
+   	        android:minWidth="50dp"
    	        android:onClick="setOutside"
    	        android:text="Outside" />
 
@@ -74,6 +75,7 @@
    	        android:layout_marginRight="3dp"
    	        android:layout_weight="1"
    	        android:gravity="center"
+   	        android:minWidth="50dp"
    	        android:onClick="setFridge"
    	        android:text="Fridge" />
 
@@ -83,6 +85,7 @@
    	        android:layout_height="wrap_content"
    	        android:layout_weight="1"
    	        android:gravity="center"
+   	        android:minWidth="50dp"
    	        android:onClick="setFreezer"
    	        android:text="Freezer" />
 

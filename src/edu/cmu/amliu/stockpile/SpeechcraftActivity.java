@@ -5,10 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -101,34 +100,40 @@ public class SpeechcraftActivity extends Activity {
 		location = "Outside";
 		resetButtonStyles();
 		Button outsideButton = (Button) findViewById(R.id.outside);
-		outsideButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		outsideButton.setBackgroundColor(pink);	
 	}
 	
 	public void setFridge(View view) {
 		location = "Fridge";
 		resetButtonStyles();
 		Button fridgeButton = (Button) findViewById(R.id.fridge);
-		fridgeButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		fridgeButton.setBackgroundColor(pink);	
 	}
 	
 	public void setFreezer(View view) {
 		location = "Freezer";
 		resetButtonStyles();
 		Button freezerButton = (Button) findViewById(R.id.freezer);
-		freezerButton.setBackgroundColor(Color.BLUE);	
+		int pink = Color.parseColor("#D75A5D");
+		freezerButton.setBackgroundColor(pink);	
 	}
-	
-	// Resets all button styles to the default
+
+	/**
+	 * Resets all button option styles to the default
+	 */
 	public void resetButtonStyles() {
-		//TODO: Create own style, set a drawable, and reset buttons to said drawable
+		int drawable_id = R.drawable.stockbutton;
+		Drawable stockbutton = getResources().getDrawable(drawable_id);
 		
 		// For now I'm just going to set the bg colors
 		Button outsideButton = (Button) findViewById(R.id.outside);
-		outsideButton.setBackgroundColor(Color.GRAY);
+		outsideButton.setBackground(stockbutton);
 		Button fridgeButton = (Button) findViewById(R.id.fridge);
-		fridgeButton.setBackgroundColor(Color.GRAY);
+		fridgeButton.setBackground(stockbutton);
 		Button freezerButton = (Button) findViewById(R.id.freezer);
-		freezerButton.setBackgroundColor(Color.GRAY);
+		freezerButton.setBackground(stockbutton);
 	}
 	
 }
