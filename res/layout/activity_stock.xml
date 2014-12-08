@@ -55,11 +55,10 @@
     </LinearLayout>
     
    <!--  Trick to insert an hr like element -->
-
    	<View
    	    android:id="@+id/hr"
    	    android:layout_width="fill_parent"
-   	    android:layout_height="3dp"
+   	    android:layout_height="2dp"
    	    android:layout_below="@+id/stockoptions"
    	    android:layout_marginBottom="10dp"
    	    android:background="@color/toast"/>

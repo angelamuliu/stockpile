@@ -68,31 +68,6 @@ public class StockActivity extends Activity {
             speakButton.setText("Recognizer not present");
         }
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.stock, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		if (id == android.R.id.home) { 
-			// When clicking to go back to main activity/home, also transition
-			finish();
-			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	
 	// Also provide similar transitions for pressing the back button
 	@Override
@@ -172,8 +147,8 @@ public class StockActivity extends Activity {
     	Log.d("Activity", "Got back activity");
     	Log.d("Activity arguments", "ReqCode:" + requestCode + " Result:"+resultCode);
     	
-    	// Didn't get anything useful back
-    	if (requestCode == SPEECHCRAFT_REQCODE && resultCode == RESULT_CANCELED) {
+    	// Didn't get anything useful back from either textcraft or speechcraft
+    	if ((requestCode == SPEECHCRAFT_REQCODE || requestCode == TEXTCRAFT_REQCODE) && resultCode == RESULT_CANCELED) {
     		Log.d("Activity", "Didn't get anything back");
     	} else {
         	// Respond to built in speech recognition activity
@@ -206,7 +181,6 @@ public class StockActivity extends Activity {
             	foodList.setAdapter(displayedFoodsAdapter);	
             }
             super.onActivityResult(requestCode, resultCode, data);
-    		
     	}
     }
  

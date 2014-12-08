@@ -40,6 +40,14 @@ public class TextcraftActivity extends Activity {
 		
 		setContentView(R.layout.activity_textcraft);
 	}
+	
+	// A back button within the page
+	public void backHome(View view) {
+		Intent resultIntent = new Intent();
+		setResult(Activity.RESULT_CANCELED, resultIntent);
+		finish();
+	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
 
 	// When the user is all done, press the addfood button which calls this
 	// which packages info to send back to stock activity

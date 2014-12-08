@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,10 @@ public class FoodActivity extends ListActivity {
 	private DBDataSource datasource;
 	private List<Food> values;  // Food values for a certain SR
 	
+	// What SR this food page corresponds to
+	private int sr_id;
+	private String itemStr; // The string value of the tapped SR
+	
 	FoodExpandableListAdapter listAdapter; // Adapter for expListView
     ExpandableListView expListView; // The view we're inserting into
     ArrayList<String> listDataHeader; // Used to give list it's headers/expandable sections
@@ -45,7 +50,8 @@ public class FoodActivity extends ListActivity {
 	    // Receive the stock record's id
 	    Intent intent = getIntent();
 	    Bundle bundle = intent.getExtras();
-	    int sr_id = bundle.getInt("sr id");
+	    sr_id = bundle.getInt("sr id");
+	    itemStr = bundle.getString("itemStr");
 	 
 	    datasource = new DBDataSource(this);
 	    datasource.open();
@@ -105,65 +111,55 @@ public class FoodActivity extends ListActivity {
 	  }
 	  
 	// ----------------------------------
-	// CRUD - connect with layout
+	// CRUD 
 	// ----------------------------------
-
-	  // Will be called via the onClick attribute
-	  // of the buttons in main.xml
-	  public void onClick(View view) {
-	    @SuppressWarnings("unchecked")
-	    ArrayAdapter<String> adapter = (ArrayAdapter<String>) getListAdapter();
-	    Food food = null;
-	    switch (view.getId()) {
-	    case R.id.add:
-//	    	food = datasource.create_Food(1); //Create a food associated with stockrecord id 1
-//	    	values.add(food);
-//	    	Log.d("Food values", food.format_Str());
-//	    	adapter.add(food.format_Str());
-	      break;
-	    case R.id.delete:
-	      if (getListAdapter().getCount() > 0) {
-	    	  Log.d("Delete", "Delete food");
-	    	  
-	    	  food = values.get(0);
-	    	  datasource.delete_Food(food.get_id());
-	    	  values.remove(0);
-	    	  adapter.remove(food.format_Str());
-	      }
-	      break;
-	    }
-	    adapter.notifyDataSetChanged();
+	  
+	  /**
+	   * Sends message back to Stockrecord to delete a stockrecord
+	   * @param view
+	   */
+	  public void deleteSR(View view) {
+    	Intent resultIntent = new Intent();
+    	Bundle bundle = new Bundle();
+		bundle.putInt("sr id", sr_id);
+		bundle.putString("itemStr", itemStr);
+		resultIntent.putExtras(bundle);
+		setResult(Activity.RESULT_OK, resultIntent);
+		finish();
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	  }
+	  
+	  // Deletes the first food in this SR
+	  public void deleteFood(View view) {
+		  if (getListAdapter().getCount() > 0) {
+			  ArrayAdapter<String> adapter = (ArrayAdapter<String>) getListAdapter();
+			  Log.d("DELETE", "Deleting food");
+			  Food food = values.get(0);
+			  datasource.delete_Food(food.get_id());
+			  values.remove(0);
+			  adapter.remove(food.format_Str());
+			  adapter.notifyDataSetChanged();
+		  }
 	  }
 	  
 	// Also provide similar transitions for pressing the back button
 	@Override
 	public void onBackPressed() {
+		datasource.close();
 	    super.onBackPressed();
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
+	
+	// If user wants to go back
+	public void switchActivity_SR(View view) {
+		datasource.close();
+		Intent resultIntent = new Intent();
+		setResult(Activity.RESULT_CANCELED, resultIntent);
+		finish();
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
 	  
-	// ----------------------------------
-	// Misc
-	// ----------------------------------
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	
 	
 }

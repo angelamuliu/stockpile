@@ -76,6 +76,6 @@
         android:drawableRight="@drawable/ic_action_new"
         android:gravity="center"
         android:onClick="addFood"
-        android:text="Add Food" />
+        android:text="Add Food " />
 
 </RelativeLayout>

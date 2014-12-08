@@ -71,12 +71,6 @@ public class StockrecordActivity extends ListActivity {
 	    // Have most recent SR in it's own little container
 	    TextView mostRecent = (TextView) findViewById(R.id.newSR);
 	    mostRecent.setText(stringvalues.get(0));
-	    
-	  }
-	  
-	  // When the most recent SR is tapped
-	  public void getNewest(View view) {
-		  switchActivity_FoodView(extract_srID(stringvalues.get(0)));
 	  }
 	  
 	  // Ensuring the DB is properly handled and not left open
@@ -127,44 +121,6 @@ public class StockrecordActivity extends ListActivity {
 			  datasource.addOne_tofood(getApplicationContext(), foodname);
 		  }
 	  }
-	  
-	  // Will be called via the onClick attribute
-	  // of the buttons in main.xml
-	  // TODO: Have a dedicated delete method, it's too messy handling all clicks with one method
-	  public void onClick(View view) {
-	    @SuppressWarnings("unchecked")
-	    ArrayAdapter<String> adapter = (ArrayAdapter<String>) getListAdapter();
-	    Stockrecord sr = null;
-	    switch (view.getId()) {
-	    case R.id.add:
-	    	sr = datasource.create_Stockrecord();
-	    	values.add(sr);
-	    	adapter.add(sr.format_Str());
-	      break;
-	    case R.id.delete:
-	      if (getListAdapter().getCount() > 0) {
-	    	  
-	    	  // get the string of the clicked item and extract the stockrecord ID from it
-	    	  String itemStr = (String) getListAdapter().getItem(0);
-	    	  int sr_ID = extract_srID(itemStr);
-	    	  
-	    	  // need to remove one per food in foodcount k-v file (since sharedpreferences file
-	    	  // is not the db, we need this step)
-	    	  List<Food> sr_foods = datasource.getFood_forSR(sr_ID);
-	    	  for (int i=0; i<sr_foods.size(); i++) {
-	    		  Food viewedfood = sr_foods.get(i);
-	    		  String foodname = viewedfood.get_name();
-	    		  datasource.removeOne_fromfood(getApplicationContext(), foodname);
-	    	  }
-	    	  
-	    	  // deleting the stockrecord also removes all associated foods from db
-	    	  datasource.delete_Stockrecord(extract_srID(itemStr));
-	    	  adapter.remove(itemStr);
-	      }
-	      break;
-	    }
-	    adapter.notifyDataSetChanged();
-	  }
 	
 	/**
 	 * Responds to each list item being tapped. We extract the string value of the tapped
@@ -178,7 +134,13 @@ public class StockrecordActivity extends ListActivity {
 		Object o = this.getListAdapter().getItem(position);
         String itemStr = o.toString();
 		
-		switchActivity_FoodView(extract_srID(itemStr));
+		switchActivity_FoodView(extract_srID(itemStr), itemStr);
+	}
+	
+	// When the most recent SR is tapped
+	public void getNewest(View view) {
+		String itemStr = stringvalues.get(0);
+		switchActivity_FoodView(extract_srID(stringvalues.get(0)), itemStr);
 	}
 	
 	/**
@@ -192,47 +154,84 @@ public class StockrecordActivity extends ListActivity {
 		return sr_id;
 	}
 	
+	
+	private static final int FOODVIEW_REQCODE = 5000;
+	
 	/**
-	 * Given the stock record id, create a food activity view that corresponds
+	 * Given the stock record id, start a food activity view that corresponds
 	 * @param sr_id
 	 */
-	public void switchActivity_FoodView(int sr_id) {
+	public void switchActivity_FoodView(int sr_id, String itemStr) {
+		datasource.close();
 		Intent intent = new Intent(this, FoodActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("sr id", sr_id);
+		bundle.putString("itemStr", itemStr);
 		intent.putExtras(bundle);
-		startActivity(intent);
+		startActivityForResult(intent, FOODVIEW_REQCODE);
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
 	// Also provide similar transitions for pressing the back button
 	@Override
 	public void onBackPressed() {
+		datasource.close();
 	    super.onBackPressed();
 	    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
-
-	// ----------------------------------
-	// MISC
-	// ----------------------------------
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	// If user wants to go back
+	public void switchActivity_Main(View view) {
+		datasource.close();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 
+	// Handle the response from a foodview activity
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("Activity arguments", "ReqCode:" + requestCode + " Result:"+resultCode);
+		
+		if (resultCode == RESULT_OK) { // Deleted stockrecord and food items
+			Log.d("Need to delete", "" +data.getExtras().getInt("sr id"));
+			Log.d("Need to delete", data.getExtras().getString("itemStr"));
+			
+			datasource.open();
+			int sr_id = data.getExtras().getInt("sr id");
+			String itemStr = data.getExtras().getString("itemStr");
+			
+			  // Need to remove one per food in foodcount k-v file (since sharedpreferences file
+	    	  // is not the db, we need this step)
+	    	  List<Food> sr_foods = datasource.getFood_forSR(sr_id);
+	    	  for (int i=0; i<sr_foods.size(); i++) {
+	    		  Food viewedfood = sr_foods.get(i);
+	    		  String foodname = viewedfood.get_name();
+	    		  datasource.removeOne_fromfood(getApplicationContext(), foodname);
+	    	  }
+	    	  
+	    	  // Deleting the stockrecord also removes all associated foods from db
+	    	  datasource.delete_Stockrecord(sr_id);
+	    	  
+	    	  // Update the view now
+	    	  stringvalues.remove(itemStr);
+	    	  // Reset the adapter to the updated string
+	    	  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+			        android.R.layout.simple_list_item_1, stringvalues.subList(1, stringvalues.size()));
+			  setListAdapter(adapter);
+			    
+			  // Reset the 'most recent' record in case user deleted most recent
+			  TextView mostRecent = (TextView) findViewById(R.id.newSR);
+			  mostRecent.setText(stringvalues.get(0));
+
+
 		}
-		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	
+	
+	
+	
 	
 }

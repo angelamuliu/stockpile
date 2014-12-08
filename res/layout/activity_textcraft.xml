@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.TextcraftActivity" >
-
+    
     <LinearLayout
+        android:id="@+id/text_foodinput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp" >
 
         <EditText
             android:id="@+id/foodInput"
@@ -31,14 +34,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:onClick="setFoodName"
             android:text="Ok" />
 
     </LinearLayout>
 
    	<LinearLayout
-   	    android:layout_width="match_parent"
+   	    android:id="@+id/textOptions"
+   	    android:layout_width="fill_parent"
    	    android:layout_height="wrap_content"
+   	    android:layout_below="@id/text_foodinput"
+   	    android:layout_marginBottom="10dp"
    	    android:gravity="center_horizontal"
    	    android:orientation="horizontal" >
 
@@ -46,6 +53,9 @@
    	        android:id="@+id/outside"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
+   	        android:layout_marginRight="3dp"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
    	        android:onClick="setOutside"
    	        android:text="Outside" />
 
@@ -53,6 +63,9 @@
    	        android:id="@+id/fridge"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
+   	        android:layout_marginRight="3dp"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
    	        android:onClick="setFridge"
    	        android:text="Fridge" />
 
@@ -60,18 +73,22 @@
    	        android:id="@+id/freezer"
    	        android:layout_width="wrap_content"
    	        android:layout_height="wrap_content"
+   	        android:layout_weight="1"
+   	        android:gravity="center"
    	        android:onClick="setFreezer"
    	        android:text="Freezer" />
 
    	</LinearLayout>
    	
-	<Button
-   	    android:id="@+id/addFood"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignParentLeft="true"
-   	    android:gravity="center"
-   	    android:onClick="addFood"
-   	    android:text="Add Food" />
+   <Button
+        android:id="@+id/addFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textOptions"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/ic_action_new"
+        android:gravity="center"
+        android:onClick="addFood"
+        android:text="Add Food " />
 
-</LinearLayout>
+</RelativeLayout>
