@@ -76,6 +76,11 @@ Define Style, Theme, Colors
 Drawables in terms of making own button
 	http://developer.xamarin.com/recipes/android/resources/general/style_a_button/
 	* http://dmytrodanylyk.com/pages/blog/flat-button.html
+
+Relative Layout help
+	http://stackoverflow.com/questions/2318775/how-to-create-fixed-footer-in-android-layout
+
+
 	
 	
 	

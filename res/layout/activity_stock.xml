@@ -10,18 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.StockActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:drawableRight="@drawable/ic_action_accept"
-        android:gravity="center"
-        android:onClick="switchActivity_Stockrecord"
-        android:text="Done" />
-
+   <TextView
+       android:id="@+id/backHome"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_marginBottom="10dp"
+       android:clickable="true"
+       android:fontFamily="sans-serif-light"
+       android:onClick="switchActivity_Main"
+       android:text="&lt; Cancel and return home"
+       android:textColorLink="@color/dark_chocolate" />
+    
    <LinearLayout
        android:id="@+id/stockoptions"
+       android:layout_below="@+id/backHome"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:layout_marginBottom="10dp"
@@ -68,6 +71,15 @@
         android:layout_below="@+id/hr"
         android:gravity="center" >
     </ListView>
-
+    
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:drawableRight="@drawable/ic_action_accept"
+        android:gravity="right|center_vertical"
+        android:onClick="switchActivity_Stockrecord"
+        android:text="Save Record " />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,16 +10,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.cmu.amliu.stockpile.SpeechcraftActivity" >
 
-    <ListView
+    <TextView
+        android:id="@+id/speech_backHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:onClick="backHome"
+        android:text="&lt; Not right? Try again." />
+    
+   <ListView
         android:id="@+id/speechmatches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:listSelector="#11FFFF" >
-    </ListView>
-
+        android:layout_below="@id/speech_backHome"
+        android:listSelector="#11FFFF" />
+    
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/speechOptions"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/speechmatches"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
@@ -27,6 +40,9 @@
             android:id="@+id/outside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:onClick="setOutside"
             android:text="Outside" />
 
@@ -34,6 +50,9 @@
             android:id="@+id/fridge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:onClick="setFridge"
             android:text="Fridge" />
 
@@ -41,17 +60,22 @@
             android:id="@+id/freezer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:onClick="setFreezer"
             android:text="Freezer" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/addFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/speechOptions"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/ic_action_new"
         android:gravity="center"
         android:onClick="addFood"
         android:text="Add Food" />
 
-</LinearLayout>
+</RelativeLayout>

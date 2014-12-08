@@ -118,6 +118,13 @@ public class StockActivity extends Activity {
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
+	// If user wants to go back
+	public void switchActivity_Main(View view) {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+	
 	// ------------------------------------------
 	// SPEECH TO TEXT MANAGEMENT
 	// ------------------------------------------
@@ -165,36 +172,42 @@ public class StockActivity extends Activity {
     	Log.d("Activity", "Got back activity");
     	Log.d("Activity arguments", "ReqCode:" + requestCode + " Result:"+resultCode);
     	
-    	// Respond to built in speech recognition activity
-        if (requestCode == SPEECH_REQCODE && resultCode == RESULT_OK) {
-            // Populate the wordsList with the String values the recognition engine thought it heard
-        	// i.e. "Milk" -> matches = [milk, Milk, Mielke]
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            Log.d("Hearing...", matches.toString());
-            
-            // Start the speechcraft activity and passing heard words
-            Intent intent = new Intent(this, SpeechcraftActivity.class);
-     		Bundle bundle =new Bundle();
-     		bundle.putStringArray("matches", matches.toArray(new String[matches.size()]));
-     		intent.putExtras(bundle);
-    		startActivityForResult(intent, SPEECHCRAFT_REQCODE);
-    		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
-        // Respond to a successfully finished textcraft or speechcraft activity, we'll get back
-        // two strings - the food's name, and the food's location
-        if ((requestCode == TEXTCRAFT_REQCODE || requestCode == SPEECHCRAFT_REQCODE) && resultCode == RESULT_OK) {
-        	// Update the two arrays that store values and the one that displays it on this activity
-        	String foodName = data.getExtras().getString("foodName");
-        	foodNameList.add(foodName);
-        	
-        	String location = data.getExtras().getString("location");
-        	foodlocationList.add(location);
+    	// Didn't get anything useful back
+    	if (requestCode == SPEECHCRAFT_REQCODE && resultCode == RESULT_CANCELED) {
+    		Log.d("Activity", "Didn't get anything back");
+    	} else {
+        	// Respond to built in speech recognition activity
+            if (requestCode == SPEECH_REQCODE && resultCode == RESULT_OK) {
+                // Populate the wordsList with the String values the recognition engine thought it heard
+            	// i.e. "Milk" -> matches = [milk, Milk, Mielke]
+                ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                Log.d("Hearing...", matches.toString());
+                
+                // Start the speechcraft activity and passing heard words
+                Intent intent = new Intent(this, SpeechcraftActivity.class);
+         		Bundle bundle =new Bundle();
+         		bundle.putStringArray("matches", matches.toArray(new String[matches.size()]));
+         		intent.putExtras(bundle);
+        		startActivityForResult(intent, SPEECHCRAFT_REQCODE);
+        		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+            // Respond to a successfully finished textcraft or speechcraft activity, we'll get back
+            // two strings - the food's name, and the food's location
+            if ((requestCode == TEXTCRAFT_REQCODE || requestCode == SPEECHCRAFT_REQCODE) && resultCode == RESULT_OK) {
+            	// Update the two arrays that store values and the one that displays it on this activity
+            	String foodName = data.getExtras().getString("foodName");
+            	foodNameList.add(foodName);
+            	
+            	String location = data.getExtras().getString("location");
+            	foodlocationList.add(location);
 
-        	displayedFoods.add(foodName + " | " + location) ;
-        	ArrayAdapter<String> displayedFoodsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, displayedFoods);
-        	foodList.setAdapter(displayedFoodsAdapter);	
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+            	displayedFoods.add(foodName + " | " + location) ;
+            	ArrayAdapter<String> displayedFoodsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, displayedFoods);
+            	foodList.setAdapter(displayedFoodsAdapter);	
+            }
+            super.onActivityResult(requestCode, resultCode, data);
+    		
+    	}
     }
  
     
