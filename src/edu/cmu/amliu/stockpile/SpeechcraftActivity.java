@@ -50,14 +50,27 @@ public class SpeechcraftActivity extends Activity {
 		 wordsList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		 wordsList.setAdapter(wordAdapter);
 		 
+		 // Tapping an item sets it bg color to pink and sets foodName to it
 		 wordsList.setOnItemClickListener(new OnItemClickListener() {
 			 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				 resetListStyles();
 				 TextView tappedItem = ((TextView)view);
+				 int pink = Color.parseColor("#D75A5D");
+				 tappedItem.setBackgroundColor(pink);
 				 String item = tappedItem.getText().toString();
 				 foodName = item;
 		      }
+			 
+			 // Clear the style of any other list items first
+			 public void resetListStyles() {
+				 for (int i=0; i<wordsList.getChildCount(); i++) {
+					 View child = wordsList.getChildAt(i);
+					 child.setBackgroundColor(Color.TRANSPARENT);
+				 }
+			 }
 		 });
 	}
+	
 	
 	// A back button within the page
 	public void backHome(View view) {
@@ -69,31 +82,31 @@ public class SpeechcraftActivity extends Activity {
 	
 	// When the user is all done, press the addfood button which calls this
 		// which packages info to send back to stock activity
-		public void addFood(View view) {
-			Context context = getApplicationContext();
-			if (foodName.isEmpty()) {
-				CharSequence text = "Select a food";
-				int duration = Toast.LENGTH_SHORT;
+	public void addFood(View view) {
+		Context context = getApplicationContext();
+		if (foodName.isEmpty()) {
+			CharSequence text = "Select a food";
+			int duration = Toast.LENGTH_SHORT;
 
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-			} else if (location.isEmpty()) {
-				CharSequence text = "Select a location";
-				int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		} else if (location.isEmpty()) {
+			CharSequence text = "Select a location";
+			int duration = Toast.LENGTH_SHORT;
 
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-			} else {
-				// Valid input, package name and location and send back array to
-				// stockactivity
-				Intent resultIntent = new Intent();
-				resultIntent.putExtra("foodName", foodName);
-				resultIntent.putExtra("location", location);
-				setResult(Activity.RESULT_OK, resultIntent);
-				finish();
-			    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-			}
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		} else {
+			// Valid input, package name and location and send back array to
+			// stockactivity
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra("foodName", foodName);
+			resultIntent.putExtra("location", location);
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+		    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 		}
+	}
 	
 	// Setting location and styling the choosen button
 	public void setOutside(View view) {
