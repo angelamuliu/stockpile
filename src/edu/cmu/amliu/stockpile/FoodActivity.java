@@ -35,10 +35,6 @@ public class FoodActivity extends ListActivity {
     ExpandableListView expListView; // The view we're inserting into
     ArrayList<String> listDataHeader; // Used to give list it's headers/expandable sections
     HashMap<String, ArrayList<String>> listDataChild; // The list item children, separated per header/section by key
-    
-	// ----------------------------------
-	// Activity Lifecycle
-	// ----------------------------------
 	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {

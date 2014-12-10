@@ -1,9 +1,14 @@
 package edu.cmu.amliu.stockpile;
 
+import java.util.List;
+import edu.cmu.amliu.stockpile.db.Food;
+import edu.cmu.amliu.stockpile.db.DBDataSource;
+import edu.cmu.amliu.stockpile.db.Stockrecord;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 /*
  * This activity warns you what food is about to go bad, granted that the food has
@@ -11,36 +16,34 @@ import android.view.MenuItem;
  */
 
 public class RottersActivity extends Activity {
+	
+	private DBDataSource datasource;
+	private Stockrecord mostRecent;
+	private List<Food> mostRecentFood;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rotters);
+		
+		datasource = new DBDataSource(this);
+	    datasource.open();
+		mostRecent = datasource.getMostRecent_Stockrecord();
+		if (mostRecent != null) {
+			 TextView header = (TextView) findViewById(R.id.rot_header);
+			 header.setText("HAS RECORD");
+			 mostRecentFood = datasource.getFood_forSR(mostRecent.get_id());
+		}
+		datasource.close();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.rotters, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		if (id == android.R.id.home) { 
-			// When clicking to go back to main activity/home, also transition
-			finish();
-			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	
+	// If user wants to go back
+	public void switchActivity_Main(View view) {
+		datasource.close();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 	
 	// Also provide similar transitions for pressing the back button

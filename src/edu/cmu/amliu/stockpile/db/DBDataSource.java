@@ -104,6 +104,26 @@ public class DBDataSource {
 		return all_stockrecords;
 	}
 	
+	/**
+	 * Returns a single stockrecord, the most recent. If there aren't any, then it
+	 * just returns null
+	 * @return
+	 */
+	public Stockrecord getMostRecent_Stockrecord() {
+		String[] cols = {"_id", "date_made"};
+		Cursor cursor = database.query("stockrecord", cols, null, null, null, null, "_id DESC", "1");
+//		Cursor cursor = database.query("stockrecord", cols, null, null, null, null, "_id DESC");
+		
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			Stockrecord mostRecent = cursorto_Stockrecord(cursor);
+			cursor.close();
+			return mostRecent;
+		} else {
+			return null;
+		}
+	}
+	
 	// Given a list of foods, converts all foods into a list of strings
 	public List<String> stockrecords_toStrList(List<Stockrecord> stockrecords) {
 		List<String> stockrecord_strlist = new ArrayList<String>();
