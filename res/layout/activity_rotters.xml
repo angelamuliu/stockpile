@@ -13,6 +13,7 @@
         android:id="@+id/rot_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:clickable="true"
         android:fontFamily="sans-serif-light"
         android:onClick="switchActivity_Main"
@@ -23,24 +24,56 @@
         android:id="@+id/rot_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You haven't ever stocked up. Come back here once you have!" />
+        android:layout_marginBottom="10dp"
+        android:text="You haven&apos;t ever stocked up. Come back here once you have!" />
+    
+    <!--  Trick to insert an hr like element -->
+   	<View
+   	    android:id="@+id/hr"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="2dp"
+   	    android:layout_marginBottom="10dp"
+   	    android:background="@color/toast"/>
+
+   	<TextView
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:text="Outside" />
 
     <ListView
         android:id="@+id/rot_outlist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" >
+
     </ListView>
+    
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:text="Fridge" />
     
     <ListView
         android:id="@+id/rot_fridgelist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" >
+
     </ListView>
     
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:text="Freezer" />
+    
    <ListView
-        android:id="@+id/rot_freezelist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+       android:id="@+id/rot_freezelist"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="10dp" >
+
     </ListView>
 
 </LinearLayout>

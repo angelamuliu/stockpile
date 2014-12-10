@@ -34,6 +34,9 @@ the best way to implement the rot feature would be connecting to a database host
 cloud via internet and pull relevant data, as saving all the food names and expirations
 would be a bit much clientside.
 
+For now, I simply have the rot reminder page show the users the most recent record and
+age of all of the foods (which is the same).
+
 
 --------------------------------------------------------------------------------------
 

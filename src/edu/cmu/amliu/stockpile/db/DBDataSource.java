@@ -3,7 +3,9 @@ package edu.cmu.amliu.stockpile.db;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -201,7 +203,11 @@ public class DBDataSource {
 		return foods;
 	}
 	
-	// Given a list of foods, converts all foods into a list of strings
+	/**
+	 * Given a list of foods, converts all foods into a list of strings
+	 * @param foods
+	 * @return
+	 */
 	public List<String> foods_toStrList(List<Food> foods) {
 		List<String> food_strList = new ArrayList<String>();
 		for (int i=0; i<foods.size(); i++) {
@@ -243,7 +249,47 @@ public class DBDataSource {
 		return foodMap;
 	}
 	
-	// Can translate cursor query results into a Stockrecord obj
+	/**
+	 * A special function similiar to foods_toStrMap, but instead the food names also contain
+	 * information about when they're about to expire as well
+	 * @param foods
+	 * @return
+	 */
+	public HashMap<String, ArrayList<String>> foods_toRotMap(Date datemade, List<Food> foods) {
+		Date today = Calendar.getInstance().getTime();
+		int age = today.compareTo(datemade);
+		
+		HashMap<String, ArrayList<String>> foodMap = new HashMap<String, ArrayList<String>>();
+		
+		ArrayList<String> outside = new ArrayList<String>();
+		ArrayList<String> fridge = new ArrayList<String>();
+		ArrayList<String> freezer = new ArrayList<String>();
+		
+		for (int i=0; i<foods.size(); i++) {
+			Food viewedfood = foods.get(i);
+			
+			if (viewedfood.get_location().equals("Outside")) {
+				outside.add(viewedfood.get_name() + " (" + age + "days old)");
+			}
+			if (viewedfood.get_location().equals("Fridge")) {
+				fridge.add(viewedfood.get_name() + " (" + age + "days old)");
+			}
+			if (viewedfood.get_location().equals("Freezer")) {
+				freezer.add(viewedfood.get_name() + " (" + age + "days old)");
+			}
+		}
+		foodMap.put("Outside", outside);
+		foodMap.put("Fridge", fridge);
+		foodMap.put("Freezer", freezer);
+		return foodMap;
+	}
+	
+	
+	/**
+	 * Transalte cursor query results into a Stockrecord obj
+	 * @param cursor
+	 * @return
+	 */
 	private Food cursorto_Food(Cursor cursor) {
 		Food food = new Food();
 		food.set_ID(cursor.getInt(0));

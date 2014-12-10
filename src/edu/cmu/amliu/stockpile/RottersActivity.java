@@ -1,6 +1,9 @@
 package edu.cmu.amliu.stockpile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import edu.cmu.amliu.stockpile.db.DBDataSource;
@@ -9,6 +12,7 @@ import edu.cmu.amliu.stockpile.db.Stockrecord;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -38,9 +42,19 @@ public class RottersActivity extends Activity {
 		if (mostRecent != null) {
 			TextView header = (TextView) findViewById(R.id.rot_header);
 			header.setText("Check up on your foods that were stocked on " + mostRecent.get_date_made());
+			
+			// Getting the date of the stockrecord and parsing
+			SimpleDateFormat formatter = new SimpleDateFormat("yyy/MM/dd");
+			Date parsedDate = null;
+			try {
+				parsedDate = formatter.parse(mostRecent.get_date_made());
+				Log.d("DATE MADE", parsedDate.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			 
 			List<Food> mostRecentFood = datasource.getFood_forSR(mostRecent.get_id());
-			mostRecentFoodMap = datasource.foods_toStrMap(mostRecentFood);
+			mostRecentFoodMap = datasource.foods_toRotMap(parsedDate, mostRecentFood);
 			 
 			ListView out_listview = (ListView) findViewById(R.id.rot_outlist);
 			ListView fridge_listview = (ListView) findViewById(R.id.rot_fridgelist);
