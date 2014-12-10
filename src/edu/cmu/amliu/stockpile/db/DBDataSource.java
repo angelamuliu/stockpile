@@ -316,10 +316,11 @@ public class DBDataSource {
 			int foodvalue = foodCount.getInt(foodname, 0);
 			if (reversedMap.get(foodvalue) == null) {
 				ArrayList<String> foodnames = new ArrayList<String>();
-				foodnames.add(foodname);
+				// String we use is the number of times stocked and the food's name
+				foodnames.add(foodvalue + " / " + foodname);
 				reversedMap.put(foodvalue, foodnames);
 			} else {
-				reversedMap.get(foodvalue).add(foodname);
+				reversedMap.get(foodvalue).add(foodvalue + " / " + foodname);
 			}
 		}
 		return reversedMap;
@@ -342,9 +343,6 @@ public class DBDataSource {
 	    	ArrayList<String> foodsInCount = foodmap.get(keys[i]);
 	    	sortedFoods.addAll(foodsInCount);
 	    }
-		for (int i=0; i<sortedFoods.size(); i++) {
-			Log.d("FOOD", sortedFoods.get(i));
-		}
 		return sortedFoods;
 	}
 	

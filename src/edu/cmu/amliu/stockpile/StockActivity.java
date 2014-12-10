@@ -59,7 +59,7 @@ public class StockActivity extends Activity {
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
         if (activities.size() == 0) {
         	speakButton.setEnabled(false);
-            speakButton.setText("Recognizer not present");
+            speakButton.setText("N/A");
         }
 	}
 	
