@@ -72,7 +72,6 @@
 			<Button
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_marginBottom="3dp"
 			    android:gravity="center"
 			    android:onClick="switchActivity_Rotters"
 			    android:text="@string/rotters_transistion" />

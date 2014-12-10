@@ -127,7 +127,16 @@ public class SpeechcraftActivity extends Activity {
 	
 	public void setFreezer(View view) {
 		location = "Freezer";
-		resetButtonStyles();
+		
+		// TODO: Quick fix for now, maybe in future figure out issue
+		int drawable_id = R.drawable.stockbutton;
+		Drawable stockbutton = getResources().getDrawable(drawable_id);
+		Button outsideButton = (Button) findViewById(R.id.outside);
+		outsideButton.setBackground(stockbutton);
+		Button fridgeButton = (Button) findViewById(R.id.fridge);
+		fridgeButton.setBackground(stockbutton);
+		
+		
 		Button freezerButton = (Button) findViewById(R.id.freezer);
 		int pink = Color.parseColor("#D75A5D");
 		freezerButton.setBackgroundColor(pink);	
