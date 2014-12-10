@@ -205,7 +205,7 @@ public class DBDataSource {
 	public List<String> foods_toStrList(List<Food> foods) {
 		List<String> food_strList = new ArrayList<String>();
 		for (int i=0; i<foods.size(); i++) {
-			Food viewedfood = foods.get(i);
+			Food viewedfood = foods.get(i);  
 			food_strList.add(viewedfood.format_Str());
 		}
 		return food_strList;

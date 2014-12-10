@@ -23,6 +23,24 @@
         android:id="@+id/rot_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="You haven't ever stocked up. Come back here once you have!" />
+
+    <ListView
+        android:id="@+id/rot_outlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    
+    <ListView
+        android:id="@+id/rot_fridgelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    
+   <ListView
+        android:id="@+id/rot_freezelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>
